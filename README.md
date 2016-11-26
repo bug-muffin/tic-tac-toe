@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/bug-muffin/tic-tac-toe.svg?branch=master)](https://travis-ci.org/bug-muffin/tic-tac-toe)
+
 # Tic Tac Toe
 
 Tic tac toe is a console application built with Scala. The classic game of tic tac toe is a two player game where players trade turns placing a mark on a square board until either one player has won, or the game results in a draw. A player can win by placing three consecutive marks, either horizontally, vertically, or diagonally
