@@ -1,25 +1,16 @@
 import org.scalatest.FunSpec
+import org.scalatest.BeforeAndAfter
 import org.scalatest.Matchers._
-import scala.collection.immutable.HashMap
 import carpentern.ttt.HumanMoveGenerator
 import carpentern.ttt.PlayerBuilder
 import carpentern.ttt.Setup
 
-class SetupSpec extends UnitSpec {
+class SetupSpec extends FunSpec with BeforeAndAfter {
   val playerBuilder = new MockTTTPlayerBuilder()
-  val setup = new Setup(playerBuilder)
-  val boardSize = 9
-
-  describe("#createGameBoard") {
-    it("should create a list with the board size number of elements as") {
-      assert(setup.createGameBoard(boardSize).length == boardSize)
-    }
-
-    it("should only contain blanks") {
-      val gameBoard = setup.createGameBoard(boardSize)
-      assert(gameBoard.distinct.length == 1)
-      assert(gameBoard(0) == "")
-    }
+  var setup: Setup = _
+  
+  before {
+    setup = new Setup(playerBuilder)
   }
 
   describe("#createPlayers") {

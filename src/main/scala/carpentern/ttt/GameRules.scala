@@ -1,20 +1,16 @@
 package carpentern.ttt
 
-class GameRules(board: Board) {
+class GameRules() {
   def isTieConditionMet(gameBoard:List[String]) : Boolean = {
     !gameBoard.contains("")
   }
 
-  def isWinningConditionMet(gameBoard:List[String]) : Boolean = {
-    findWinningMarker(gameBoard) != ""
+  def isWinningConditionMet(board:Board, gameBoard:List[String]) : Boolean = {
+    findWinningMarker(board, gameBoard) != ""
   }
 
-  def isGameOver(gameBoard:List[String]) : Boolean = {
-    isTieConditionMet(gameBoard) || isWinningConditionMet(gameBoard)
-  }
-
-  private def findWinningMarker(gameBoard:List[String]) : String = {
-    val winningCombinations = findWinningCombinations(gameBoard)
+  def findWinningMarker(board:Board, gameBoard:List[String]) : String = {
+    val winningCombinations = findWinningCombinations(board, gameBoard)
     for (winningCombo <- winningCombinations) {
       val winner = identifyWinner(gameBoard, winningCombo)
       if (winner != "") {
@@ -24,7 +20,11 @@ class GameRules(board: Board) {
     return ""
   }
 
-  private def findWinningCombinations(gameBoard:List[String]) : List[List[Int]] = {
+  def isGameOver(board:Board, gameBoard:List[String]) : Boolean = {
+    isTieConditionMet(gameBoard) || isWinningConditionMet(board, gameBoard)
+  }
+
+  private def findWinningCombinations(board:Board, gameBoard:List[String]) : List[List[Int]] = {
     List(board.findRows(gameBoard), board.findColumns(gameBoard), board.findDiagonals(gameBoard)).flatten
   }
 

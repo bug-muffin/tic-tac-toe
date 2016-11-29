@@ -1,8 +1,13 @@
 import org.scalatest.FunSpec
+import org.scalatest.BeforeAndAfter
 import carpentern.ttt.MoveValidator
 
-class MoveValidatorSpec extends UnitSpec {
-  val validator = new MoveValidator()
+class MoveValidatorSpec extends FunSpec with BeforeAndAfter {
+  var validator: MoveValidator = _
+
+  before {
+    validator = new MoveValidator()
+  }
 
   describe("#isValid") {
     it("should return true if move is valid") {

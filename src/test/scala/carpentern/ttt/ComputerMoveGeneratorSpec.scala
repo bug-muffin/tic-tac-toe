@@ -1,11 +1,16 @@
 import org.scalatest.FunSpec
+import org.scalatest.BeforeAndAfter
 import org.scalatest.Matchers._
 import carpentern.ttt.MoveValidator
 import carpentern.ttt.ComputerMoveGenerator
 
-class ComputerMoveGeneratorSpec extends UnitSpec {
+class ComputerMoveGeneratorSpec extends FunSpec with BeforeAndAfter {
   val validator = new MoveValidator()
-  val moveGenerator = new ComputerMoveGenerator(validator)
+  var moveGenerator: ComputerMoveGenerator = _
+
+  before {
+    moveGenerator = new ComputerMoveGenerator(validator)
+  }
 
   describe("#selectSpace") {
     it("should return a valid space") {

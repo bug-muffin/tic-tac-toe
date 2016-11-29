@@ -2,7 +2,11 @@ package carpentern.ttt
 
 import scala.collection.mutable.ListBuffer
 
-class Board {
+class Board() {
+  def createGameBoard(boardSize: Int) = {
+    List.fill(boardSize)("")
+  }
+
   def countRows(board:List[String]) : Int = {
     math.sqrt(board.length).toInt
   }

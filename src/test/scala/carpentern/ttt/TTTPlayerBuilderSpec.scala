@@ -5,9 +5,8 @@ import carpentern.ttt.HumanMoveGenerator
 import carpentern.ttt.Player
 import carpentern.ttt.TTTPlayerBuilder
 
-class TTTPlayerBuilderSpec extends UnitSpec {
+class TTTPlayerBuilderSpec extends FunSpec {
   val playerBuilder = new TTTPlayerBuilder()
-  val boardSize = 9
 
   describe("#buildPlayer") {
     val name = "Player 1"
