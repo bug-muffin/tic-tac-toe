@@ -51,7 +51,6 @@ class GameSpec extends FunSpec with BeforeAndAfter {
                          new Player("p2", "O", computerGenerator))
       game.playGame(board, gameBoard, players, view)
       assert(view.printBoardCalled == true)
-      assert(view.printBoardCalledWith == gameBoard.toString)
       assert(view.promptPlayerMoveCalled == true)
       assert(view.promptPlayerMoveCalledWith == "p1")
       assert(view.displayWinningMessageCalled == true)

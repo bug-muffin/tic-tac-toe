@@ -182,16 +182,6 @@ class GameRulesSpec extends FunSpec with BeforeAndAfter {
       val tempBoard = List("X", "X", "X", "O", "O", "", "", "", "")
       assert(rules.findWinningMarker(board, tempBoard) == "X")
     }
-
-    it("should return an empty string if there is no winner") {
-      val tempBoard = List("X", "X", "O", "O", "O", "X", "X", "O", "X")
-      assert(rules.findWinningMarker(board, tempBoard) == "")
-    }
-
-    it("should return an empty string if the board is empty") {
-      val tempBoard = List("", "", "", "", "", "", "", "", "")
-      assert(rules.findWinningMarker(board, tempBoard) == "")
-    }
   }
 
   describe("#isGameOver") {

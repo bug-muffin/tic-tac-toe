@@ -6,15 +6,20 @@ class GameRules() {
   }
 
   def isWinningConditionMet(board:Board, gameBoard:List[String]) : Boolean = {
-    findWinningMarker(board, gameBoard) != ""
+    val winningCombinations = findWinningCombinations(board, gameBoard)
+    for (winningCombo <- winningCombinations) {
+      if (isWinner(gameBoard, winningCombo)) {
+        return true
+      }
+    }
+    return false
   }
 
   def findWinningMarker(board:Board, gameBoard:List[String]) : String = {
     val winningCombinations = findWinningCombinations(board, gameBoard)
     for (winningCombo <- winningCombinations) {
-      val winner = identifyWinner(gameBoard, winningCombo)
-      if (winner != "") {
-        return winner
+      if (isWinner(gameBoard, winningCombo)) {
+        return identifyWinner(gameBoard, winningCombo)
       }
     }
     return ""
@@ -28,13 +33,13 @@ class GameRules() {
     List(board.findRows(gameBoard), board.findColumns(gameBoard), board.findDiagonals(gameBoard)).flatten
   }
 
-  private def identifyWinner(gameBoard:List[String], winningCombo:List[Int]) : String = {
+  private def isWinner(gameBoard:List[String], winningCombo:List[Int]) : Boolean = {
     val comboValues = findValuesAtComboPositions(gameBoard, winningCombo)
-    if (isMatchedCombination(comboValues)) {
-      return comboValues(0)
-    } else {
-      return ""
-    }
+    isMatchedCombination(comboValues)
+  }
+
+  private def identifyWinner(gameBoard:List[String], winningCombo:List[Int]) : String = {
+    findValuesAtComboPositions(gameBoard, winningCombo)(0)
   }
 
   private def findValuesAtComboPositions(gameBoard:List[String], winningCombo:List[Int]) : List[String] = {
@@ -42,6 +47,6 @@ class GameRules() {
   }
 
   private def isMatchedCombination(comboValues:List[String]) : Boolean = {
-    comboValues.distinct.length == 1
+    comboValues.distinct.length == 1 && comboValues(0) != ""
   }
 }
