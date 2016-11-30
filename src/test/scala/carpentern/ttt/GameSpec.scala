@@ -46,7 +46,7 @@ class GameSpec extends FunSpec with BeforeAndAfter {
       val gameBoard = List("", "X", "X", "O", "O", "X", "O", "X", "O")
       val mockGenerator = new MockMoveGenerator()
       val computerGenerator = new ComputerMoveGenerator(validator)
-      mockGenerator.stubSelectSpace("0")
+      mockGenerator.stubSelectSpace("1")
       val players = List(new Player("p1", "X", mockGenerator),
                          new Player("p2", "O", computerGenerator))
       game.playGame(board, gameBoard, players, view)

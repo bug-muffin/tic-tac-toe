@@ -30,9 +30,14 @@ class MoveValidatorSpec extends FunSpec with BeforeAndAfter {
       assert(validator.isValid(tempBoard, "-1") == false)
     }
 
+    it("should return false if move is zero") {
+      val tempBoard = List("", "", "", "", "", "", "", "", "")
+      assert(validator.isValid(tempBoard, "0") == false)
+    }
+
     it("should return false if move is greater than the board size") {
       val tempBoard = List("", "", "", "", "", "", "", "", "")
-      assert(validator.isValid(tempBoard, "12") == false)
+      assert(validator.isValid(tempBoard, "10") == false)
     }
 
     it("should return false if move is a character") {
@@ -67,7 +72,7 @@ class MoveValidatorSpec extends FunSpec with BeforeAndAfter {
 
     it("should return false if move is already taken") {
       val tempBoard = List("X", "", "", "", "", "", "", "", "")
-      assert(validator.isValid(tempBoard, "0") == false)
+      assert(validator.isValid(tempBoard, "1") == false)
     }
   }
 }

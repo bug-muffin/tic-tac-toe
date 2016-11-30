@@ -14,10 +14,10 @@ class MoveValidator {
   }
 
   private def isValidSpace(board:List[String], move:String) : Boolean = {
-    move.toInt > -1 && move.toInt < board.length
+    move.toInt > 0 && move.toInt <= board.length
   }
 
   private def isOpenSpace(board:List[String], move:String) : Boolean = {
-    board(move.toInt) == ""
+    board(move.toInt - 1) == ""
   }
 }

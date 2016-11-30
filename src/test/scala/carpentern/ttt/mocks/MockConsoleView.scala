@@ -1,3 +1,4 @@
+import carpentern.ttt.Board
 import carpentern.ttt.View
 
 class MockConsoleView extends View {
@@ -30,7 +31,7 @@ class MockConsoleView extends View {
     displayTieMessageCalled = true
   }
 
-  def printBoard(currentBoard:List[String]) = {
+  def printBoard(board:Board, currentBoard:List[String]) = {
     printBoardCalledWith = currentBoard.toString
     printBoardCalled = true
   }

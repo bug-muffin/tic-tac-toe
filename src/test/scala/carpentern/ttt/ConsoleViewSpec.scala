@@ -1,17 +1,21 @@
 import org.scalatest.FunSpec
 import org.scalatest.BeforeAndAfter
-import carpentern.ttt.ConsoleView
 import carpentern.ttt.MoveValidator
+import carpentern.ttt.Board
+import carpentern.ttt.BoardPresenter
+import carpentern.ttt.ConsoleView
 
 class ConsoleViewSpec extends FunSpec with BeforeAndAfter {
   var mockIO: MockConsoleIO = _
   var validator: MoveValidator = _
+  var presenter: BoardPresenter = _
   var view: ConsoleView = _
 
   before {
     mockIO = new MockConsoleIO()
     validator = new MoveValidator()
-    view = new ConsoleView(mockIO, validator)
+    presenter = new BoardPresenter()
+    view = new ConsoleView(mockIO, validator, presenter)
   }
 
   describe("#promptPlayerMove") {
@@ -36,7 +40,7 @@ class ConsoleViewSpec extends FunSpec with BeforeAndAfter {
       val winner = "Player 1"
       view.displayWinningMessage(winner)
       assert(mockIO.displayCalled == true)
-      assert(mockIO.displayCalledWith == "Game over. Player 1 won!")
+      assert(mockIO.displayCalledWith == "Game over. Player 1 won!\n")
     }
   }
 
@@ -44,16 +48,17 @@ class ConsoleViewSpec extends FunSpec with BeforeAndAfter {
     it("should output a tie message when the game ends in a draw") {
       view.displayTieMessage()
       assert(mockIO.displayCalled == true)
-      assert(mockIO.displayCalledWith == "Game over. It's a tie.")
+      assert(mockIO.displayCalledWith == "Game over. It's a tie.\n")
     }
   }
 
   describe("#printBoard") {
     it("should print the board as a string") {
+      val board = new Board()
       val tempBoard = List("X", "O", "O", "O", "X", "X", "X", "O", "X")
-      view.printBoard(tempBoard)
+      view.printBoard(board, tempBoard)
       assert(mockIO.displayCalled == true)
-      assert(mockIO.displayCalledWith == "List(X, O, O, O, X, X, X, O, X)")
+      assert(mockIO.displayCalledWith == " X | O | O\n===+===+===\n O | X | X\n===+===+===\n X | O | X\n\n")
     }
   }
 }

@@ -5,7 +5,8 @@ object Main {
   def main(args: Array[String]) {
     val io = new ConsoleIO()
     val validator = new MoveValidator()
-    val view = new ConsoleView(io, validator)
+    val presenter = new BoardPresenter()
+    val view = new ConsoleView(io, validator, presenter)
 
     val board = new Board()
     val boardSize = 9

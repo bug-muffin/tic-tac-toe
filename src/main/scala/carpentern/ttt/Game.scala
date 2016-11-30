@@ -19,7 +19,9 @@ class Game(rules: GameRules) {
   }
 
   private def playerTurn(board:Board, gameBoard:List[String], player:Player, view:View) : List[String] = {
-    view.printBoard(gameBoard)
+    val boardPositions = board.printableBoardPositions(board.boardPositions(gameBoard))
+    view.printBoard(board, boardPositions)
+    view.printBoard(board, gameBoard)
     view.promptPlayerMove(player.name)
 
     val move = player.moveGenerator.selectSpace(gameBoard).toInt
@@ -27,6 +29,7 @@ class Game(rules: GameRules) {
   }
 
   private def displayResults(board:Board, gameBoard:List[String], players:List[Player], view:View) = {
+    view.printBoard(board, gameBoard)
     if (rules.isWinningConditionMet(board, gameBoard)) {
       val winningMarker = rules.findWinningMarker(board, gameBoard)
       val winner = getWinningPlayer(players, winningMarker)

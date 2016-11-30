@@ -26,15 +26,24 @@ class Board() {
     List(findForwardsDiagonal(board, rows), findBackwardsDiagonal(board, rows))
   }
 
+  def separateRows(board:List[String]) : List[List[String]] = {
+    val rowCount = countRows(board)
+    board.grouped(rowCount).toList
+  }
+
   def findOpenSpaces(board:List[String]) : List[Int] = {
     board.zipWithIndex.collect{ case(x, i) if x == "" => i }
   }
 
   def placePiece(board:List[String], space:Int, marker:String) : List[String] = {
-    board.updated(space, marker)
+    board.updated(space - 1, marker)
   }
 
-  private def boardPositions(board:List[String]) : List[Int] = {
+  def printableBoardPositions(boardPositions:List[Int]) : List[String] = {
+    boardPositions.map((_ + 1)).map(_.toString)
+  }
+
+  def boardPositions(board:List[String]) : List[Int] = {
     List.range(0, board.length)
   }
 

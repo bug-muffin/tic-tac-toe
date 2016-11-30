@@ -1,6 +1,6 @@
 package carpentern.ttt
 
-class ConsoleView(io: IO, validator: MoveValidator) extends View {
+class ConsoleView(io: IO, validator: MoveValidator, presenter: BoardPresenter) extends View {
   def promptPlayerMove(playerName:String) = {
     io.display(s"$playerName, please select a space.\n")
   }
@@ -15,15 +15,14 @@ class ConsoleView(io: IO, validator: MoveValidator) extends View {
   }
 
   def displayWinningMessage(winner:String) {
-    io.display(s"Game over. ${winner} won!")
+    io.display(s"Game over. ${winner} won!\n")
   }
 
   def displayTieMessage() {
-    io.display("Game over. It's a tie.")
+    io.display("Game over. It's a tie.\n")
   }
 
-
-  def printBoard(currentBoard:List[String]) = {
-    io.display(currentBoard.toString)
+  def printBoard(board:Board, currentBoard:List[String]) = {
+    io.display(presenter.formatBoardToString(board, currentBoard) + "\n")
   }
 }

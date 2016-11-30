@@ -20,7 +20,7 @@ class ComputerMoveGeneratorSpec extends FunSpec with BeforeAndAfter {
 
     it("should not choose a space that is already taken") {
       val tempBoard = List("X", "", "X", "X", "X", "X", "X", "X", "X")
-      assert(moveGenerator.selectSpace(tempBoard) == "1")
+      assert(moveGenerator.selectSpace(tempBoard) == "2")
     }
   }
 }

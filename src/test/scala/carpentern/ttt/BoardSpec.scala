@@ -72,6 +72,18 @@ class BoardSpec extends FunSpec with BeforeAndAfter {
     }
   }
 
+  describe("#separateRows") {
+    it("should return 3 elements for a 3 x 3 board") {
+      val tempBoard = List("X", "X", "X", "O", "O", "O", "X", "X", "X")
+      assert(board.separateRows(tempBoard) == List(List("X","X","X"), List("O","O","O"), List("X","X","X")))
+    }
+
+    it("should return 4 elements for a 4 x 4 board") {
+      val tempBoard = List("X", "X", "X", "X", "O", "O", "O", "O", "X", "X", "X", "X", "O", "O", "O", "O")
+      assert(board.separateRows(tempBoard) == List(List("X","X","X","X"), List("O","O","O","O"), List("X","X","X","X"), List("O","O","O","O")))
+    }
+  }
+
   describe("#findOpenSpaces") {
     it("should return all spaces if none are occupied") {
       assert(board.findOpenSpaces(empty3x3) == List(0, 1, 2, 3, 4, 5, 6, 7, 8))
@@ -90,9 +102,31 @@ class BoardSpec extends FunSpec with BeforeAndAfter {
 
   describe("#placePiece") {
     it("should return a new board array with the piece in the selected place") {
-      val space = 1
+      val space = 2
       val marker = "X"
       assert(board.placePiece(empty3x3, space, marker) == List("", "X", "", "", "", "", "", "", ""))
+    }
+  }
+
+  describe("#printableBoardPositions") {
+    it("should return a list of strings from 1 to 9 for a 3 x 3 board") {
+      val tempBoard = List(0, 1, 2, 3, 4, 5, 6, 7, 8)
+      assert(board.printableBoardPositions(tempBoard) == List("1", "2", "3", "4", "5", "6", "7", "8", "9"))
+    }
+
+    it("should return a list of strings from 1 to 16 for a 4 x 4 board") {
+      val tempBoard = List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15)
+      assert(board.printableBoardPositions(tempBoard) == List("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"))
+    }
+  }
+
+  describe("boardPositions") {
+    it("should return a list of indices from 0 to 8 for a 3 x 3 board") {
+      assert(board.boardPositions(empty3x3) == List(0, 1, 2, 3, 4, 5, 6, 7, 8))
+    }
+
+    it("should return a list of indices from 0 to 15 for a 4 x 4 board") {
+      assert(board.boardPositions(empty4x4) == List(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15))
     }
   }
 }
