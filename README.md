@@ -12,6 +12,8 @@ Tic tac toe is a console application built with Scala. The classic game of tic t
      |   |         X |   |           |   | X
 ```
 
+This version plays agains an AI optimized with the [negamax](https://en.wikipedia.org/wiki/Negamax) algorithm.
+
 ## Requirements
 
 * [Java](https://java.com/en/download/)

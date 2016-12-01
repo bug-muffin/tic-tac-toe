@@ -3,24 +3,25 @@ package carpentern.ttt
 object Main {
 
   def main(args: Array[String]) {
-    val io = new ConsoleIO()
-    val validator = new MoveValidator()
-    val presenter = new BoardPresenter()
-    val view = new ConsoleView(io, validator, presenter)
+    val io: ConsoleIO = new ConsoleIO()
+    val validator: MoveValidator = new MoveValidator()
+    val presenter: BoardPresenter = new BoardPresenter()
+    val view: ConsoleView = new ConsoleView(io, validator, presenter)
 
-    val board = new Board()
-    val boardSize = 9
-    val gameBoard = board.createGameBoard(boardSize)
+    val board: Board = new Board()
+    val boardSize: Int = 9
+    val gameBoard: List[String] = board.createGameBoard(boardSize)
 
-    val playerBuilder = new TTTPlayerBuilder()
-    val humanMoveGenerator = new HumanMoveGenerator(view)
-    val computerMoveGenerator = new ComputerMoveGenerator(validator)
-    val setup = new Setup(playerBuilder)
-    val players = List(setup.createPlayer("Player 1", "X", humanMoveGenerator),
-                       setup.createPlayer("Computer", "O", computerMoveGenerator))
+    val gameRules: GameRules = new GameRules()
+    val playerBuilder: TTTPlayerBuilder = new TTTPlayerBuilder()
+    val markers: List[String] = List("X", "O")
+    val humanMoveGenerator: HumanMoveGenerator = new HumanMoveGenerator(view)
+    val computerMoveGenerator: ComputerMoveGenerator = new ComputerMoveGenerator(markers, board, gameRules)
+    val setup: Setup = new Setup(playerBuilder)
+    val players: List[Player] = List(setup.createPlayer("Player 1", markers(0), humanMoveGenerator),
+                                    setup.createPlayer("Computer", markers(1), computerMoveGenerator))
 
-    val gameRules = new GameRules()
-    val game = new Game(gameRules)
+    val game: Game = new Game(gameRules)
 
     game.playGame(board, gameBoard, players, view)
   }
