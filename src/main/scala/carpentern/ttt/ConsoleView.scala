@@ -25,4 +25,8 @@ class ConsoleView(io: IO, validator: MoveValidator, presenter: BoardPresenter) e
   def printBoard(board:Board, currentBoard:List[String]) = {
     io.display(presenter.formatBoardToString(board, currentBoard) + "\n")
   }
+
+  def clearScreen() = {
+    io.clear()
+  }
 }

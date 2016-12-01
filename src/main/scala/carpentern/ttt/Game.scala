@@ -1,8 +1,11 @@
 package carpentern.ttt
 
 class Game(rules: GameRules) {
+  var boardPositions: List[String] = _
+
   def playGame(board:Board, gameBoard:List[String], players:List[Player], view:View) = {
     var currentBoard = gameBoard
+    boardPositions = board.printableBoardPositions(board.boardPositions(gameBoard))
     while (!rules.isGameOver(board, currentBoard)) {
       currentBoard = alternatePlayerTurns(board, currentBoard, players, view)
     }
@@ -19,22 +22,27 @@ class Game(rules: GameRules) {
   }
 
   private def playerTurn(board:Board, gameBoard:List[String], player:Player, view:View) : List[String] = {
-    val boardPositions = board.printableBoardPositions(board.boardPositions(gameBoard))
-    view.printBoard(board, boardPositions)
-    view.printBoard(board, gameBoard)
+    displayCurrentBoard(board, gameBoard, view)
     view.promptPlayerMove(player.name)
 
     val move = player.moveGenerator.selectSpace(gameBoard).toInt
     board.placePiece(gameBoard, move, player.marker)
   }
 
-  private def displayResults(board:Board, gameBoard:List[String], players:List[Player], view:View) = {
+  private def displayCurrentBoard(board:Board, gameBoard:List[String], view:View) {
+    view.clearScreen()
+    view.printBoard(board, boardPositions)
     view.printBoard(board, gameBoard)
+  }
+
+  private def displayResults(board:Board, gameBoard:List[String], players:List[Player], view:View) = {
     if (rules.isWinningConditionMet(board, gameBoard)) {
       val winningMarker = rules.findWinningMarker(board, gameBoard)
       val winner = getWinningPlayer(players, winningMarker)
+      displayCurrentBoard(board, gameBoard, view)
       view.displayWinningMessage(winner)
     } else {
+      displayCurrentBoard(board, gameBoard, view)
       view.displayTieMessage()
     }
   }

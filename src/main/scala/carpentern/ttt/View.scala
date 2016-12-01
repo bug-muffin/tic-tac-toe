@@ -6,4 +6,5 @@ trait View {
   def displayWinningMessage(winner:String)
   def displayTieMessage()
   def printBoard(board:Board, gameBoard:List[String])
+  def clearScreen()
 }

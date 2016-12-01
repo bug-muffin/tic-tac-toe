@@ -28,13 +28,13 @@ class GameSpec extends FunSpec with BeforeAndAfter {
   }
 
   describe("#playGame") {
-
     it("should return a tie message if there is a tie") {
       val gameBoard = List("X", "X", "O", "O", "O", "X", "X", "", "")
       mockGenerator.stubSelectSpace("8")
       val players = List(new Player("p1", "X", mockGenerator),
                          new Player("p2", "O", computerGenerator))
       game.playGame(board, gameBoard, players, view)
+      assert(view.clearScreenCalled == true)
       assert(view.printBoardCalled == true)
       assert(view.promptPlayerMoveCalled == true)
       assert(view.displayTieMessageCalled == true)
@@ -48,6 +48,7 @@ class GameSpec extends FunSpec with BeforeAndAfter {
       val players = List(new Player("p1", "X", mockGenerator),
                          new Player("p2", "O", computerGenerator))
       game.playGame(board, gameBoard, players, view)
+      assert(view.clearScreenCalled == true)
       assert(view.printBoardCalled == true)
       assert(view.promptPlayerMoveCalled == true)
       assert(view.promptPlayerMoveCalledWith == "p1")

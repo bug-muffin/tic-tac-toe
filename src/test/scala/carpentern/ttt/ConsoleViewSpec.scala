@@ -61,4 +61,11 @@ class ConsoleViewSpec extends FunSpec with BeforeAndAfter {
       assert(mockIO.displayCalledWith == " X | O | O\n===+===+===\n O | X | X\n===+===+===\n X | O | X\n\n")
     }
   }
+
+  describe("#clearScreen") {
+    it("should call the UI clear function") {
+      view.clearScreen()
+      assert(mockIO.clearCalled == true)
+    }
+  }
 }

@@ -10,6 +10,7 @@ class MockConsoleView extends View {
   var displayTieMessageCalled: Boolean = false
   var printBoardCalled: Boolean = false
   var printBoardCalledWith: String = ""
+  var clearScreenCalled: Boolean = false
   var stubbedPlayerMove: String = ""
 
   def promptPlayerMove(playerName:String) = {
@@ -34,6 +35,10 @@ class MockConsoleView extends View {
   def printBoard(board:Board, currentBoard:List[String]) = {
     printBoardCalledWith = currentBoard.toString
     printBoardCalled = true
+  }
+
+  def clearScreen() = {
+    clearScreenCalled = true
   }
 
   def stubPlayerMove(moveToStub:String) = {
