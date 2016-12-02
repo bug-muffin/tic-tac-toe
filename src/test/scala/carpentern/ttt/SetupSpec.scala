@@ -18,47 +18,49 @@ class SetupSpec extends FunSpec with BeforeAndAfter {
     setup = new Setup(playerBuilder, board, view)
   }
 
-  describe("#setupBoard") {
-    it("should clear the screen") {
-      setup.setupBoard()
+  describe("Setup") {
+    describe("#setupBoard") {
+      it("should clear the screen") {
+        setup.setupBoard()
 
-      assert(view.clearScreenCalled == true)
+        assert(view.clearScreenCalled == true)
+      }
+
+      it("should prompt the user for a board size") {
+        val board = setup.setupBoard()
+
+        assert(view.promptOrderedOptionsCalled == true)
+        assert(view.getOrderedOptionsSelectionCalled == true)
+      }
+
+      it("should return a board list") {
+        val board = setup.setupBoard()
+
+        board shouldBe a [List[_]]
+      }
     }
 
-    it("should prompt the user for a board size") {
-      val board = setup.setupBoard()
+    describe("#setupPlayers") {
+      it("should prompt the player for her method of play") {
+        setup.setupPlayers(markers)
 
-      assert(view.promptOrderedOptionsCalled == true)
-      assert(view.getOrderedOptionsSelectionCalled == true)
-    }
+        assert(view.promptOrderedOptionsCalled == true)
+        assert(view.getOrderedOptionsSelectionCalled == true)
+      }
 
-    it("should return a board list") {
-      val board = setup.setupBoard()
+      it("should ask the player for her name") {
+        setup.setupPlayers(markers)
 
-      board shouldBe a [List[_]]
-    }
-  }
+        assert(view.getPlayerNameCalled == true)
+      }
 
-  describe("#setupPlayers") {
-    it("should prompt the player for her method of play") {
-      setup.setupPlayers(markers)
+      it("should return a list of 2 player objects") {
+        val players = setup.setupPlayers(markers)
 
-      assert(view.promptOrderedOptionsCalled == true)
-      assert(view.getOrderedOptionsSelectionCalled == true)
-    }
-
-    it("should ask the player for her name") {
-      setup.setupPlayers(markers)
-
-      assert(view.getPlayerNameCalled == true)
-    }
-
-    it("should return a list of 2 player objects") {
-      val players = setup.setupPlayers(markers)
-
-      assert(players.length == 2)
-      players(0) shouldBe a [Player]
-      players(1) shouldBe a [Player]
+        assert(players.length == 2)
+        players(0) shouldBe a [Player]
+        players(1) shouldBe a [Player]
+      }
     }
   }
 }

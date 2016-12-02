@@ -9,10 +9,13 @@ class MoveValidatorSpec extends FunSpec with BeforeAndAfter {
     validator = new MoveValidator()
   }
 
-  describe("#isValid") {
-    it("should return false if move is already taken") {
-      val tempBoard = List("X", "", "", "", "", "", "", "", "")
-      assert(validator.isValid(tempBoard, "1") == false)
+  describe("MoveValidator") {
+    describe("#isValid") {
+      it("should return false if move is already taken") {
+        val tempBoard = List("X", "", "", "", "", "", "", "", "")
+
+        assert(validator.isValid(tempBoard, "1") == false)
+      }
     }
   }
 }

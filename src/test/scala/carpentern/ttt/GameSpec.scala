@@ -41,50 +41,52 @@ class GameSpec extends FunSpec with BeforeAndAfter {
     List("", "X", "X", "O", "O", "X", "O", "X", "O")
   }
 
-  describe("#playGame") {
-    it("should clear the screen") {
-      mockGenerator.stubSelectSpace("1")
+  describe("Game") {
+    describe("#playGame") {
+      it("should clear the screen") {
+        mockGenerator.stubSelectSpace("1")
 
-      game.playGame(board, lastMoveBoard(), mockVMock(), view)
+        game.playGame(board, lastMoveBoard(), mockVMock(), view)
 
-      assert(view.clearScreenCalled == true)
-    }
+        assert(view.clearScreenCalled == true)
+      }
 
-    it("should display the board") {
-      mockGenerator.stubSelectSpace("1")
+      it("should display the board") {
+        mockGenerator.stubSelectSpace("1")
 
-      game.playGame(board, lastMoveBoard(), mockVMock(), view)
+        game.playGame(board, lastMoveBoard(), mockVMock(), view)
 
-      assert(view.printBoardCalled == true)      
-    }
+        assert(view.printBoardCalled == true)      
+      }
 
-    it("should prompt the player for a move") {
-      mockGenerator.stubSelectSpace("1")
+      it("should prompt the player for a move") {
+        mockGenerator.stubSelectSpace("1")
 
-      game.playGame(board, lastMoveBoard(), mockVMock(), view)
+        game.playGame(board, lastMoveBoard(), mockVMock(), view)
 
-      assert(view.promptPlayerMoveCalled == true)  
-      assert(view.promptPlayerMoveCalledWith == "p1")
-    }
+        assert(view.promptPlayerMoveCalled == true)  
+        assert(view.promptPlayerMoveCalledWith == "p1")
+      }
 
-    it("should return a tie message if there is a tie") {
-      val gameBoard = List("X", "X", "O", "O", "O", "X", "X", "", "")
-      mockGenerator.stubSelectSpace("8")
+      it("should return a tie message if there is a tie") {
+        val gameBoard = List("X", "X", "O", "O", "O", "X", "X", "", "")
+        mockGenerator.stubSelectSpace("8")
 
-      game.playGame(board, gameBoard, mockVComputer(), view)
+        game.playGame(board, gameBoard, mockVComputer(), view)
 
-      assert(view.displayTieMessageCalled == true)
-    }
+        assert(view.displayTieMessageCalled == true)
+      }
 
-    it("should display a winning message with the player's name when the player wins") {
-      val gameBoard = List("", "X", "X", "O", "O", "X", "O", "X", "O")
-      val computerGenerator = new ComputerMoveGenerator(List("X", "O"), board, gameRules)
-      mockGenerator.stubSelectSpace("1")
+      it("should display a winning message with the player's name when the player wins") {
+        val gameBoard = List("", "X", "X", "O", "O", "X", "O", "X", "O")
+        val computerGenerator = new ComputerMoveGenerator(List("X", "O"), board, gameRules)
+        mockGenerator.stubSelectSpace("1")
 
-      game.playGame(board, gameBoard, mockVComputer, view)
+        game.playGame(board, gameBoard, mockVComputer, view)
 
-      assert(view.displayWinningMessageCalled == true)
-      assert(view.displayWinningMessageCalledWith == "p1")
+        assert(view.displayWinningMessageCalled == true)
+        assert(view.displayWinningMessageCalledWith == "p1")
+      }
     }
   }
 }

@@ -10,12 +10,15 @@ class HumanMoveGeneratorSpec extends FunSpec with BeforeAndAfter {
     moveGenerator = new HumanMoveGenerator(mockView)
   }
 
-  describe("#selectSpace") {
-    it("should return a valid space") {
-      val tempBoard = List("", "", "", "", "", "", "", "", "")
-      mockView.stubPlayerMove("1")
-      assert(moveGenerator.selectSpace(tempBoard) == "1")
-      assert(mockView.getPlayerMoveCalled == true)
+  describe("HumanMoveGenerator") {
+    describe("#selectSpace") {
+      it("should return a valid space") {
+        val tempBoard = List("", "", "", "", "", "", "", "", "")
+        mockView.stubPlayerMove("1")
+
+        assert(moveGenerator.selectSpace(tempBoard) == "1")
+        assert(mockView.getPlayerMoveCalled == true)
+      }
     }
   }
 }

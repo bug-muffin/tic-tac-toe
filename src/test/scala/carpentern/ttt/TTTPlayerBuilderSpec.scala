@@ -17,28 +17,30 @@ class TTTPlayerBuilderSpec extends FunSpec {
   val computerMoveGenerator = new ComputerMoveGenerator(markers, board, rules)
   val playerBuilder = new TTTPlayerBuilder(humanMoveGenerator, computerMoveGenerator)
 
-  describe("#buildPlayer") {
-    val name = "Player 1"
-    val marker = "X"
-    val player = playerBuilder.buildPlayer(name, marker)
+  describe("TTTPlayerBuilder") {
+    describe("#buildPlayer") {
+      val name = "Player 1"
+      val marker = "X"
+      val player = playerBuilder.buildPlayer(name, marker)
 
-    it("should create a player") {
-      player shouldBe a [Player]
-    }
+      it("should create a player") {
+        player shouldBe a [Player]
+      }
 
-    it("should have a name") {
-      player.name shouldBe a [String]
-      assert(player.name == "Player 1")
-    }
+      it("should have a name") {
+        player.name shouldBe a [String]
+        assert(player.name == "Player 1")
+      }
 
-    it("should have a marker") {
-      player.marker shouldBe a [String]
-      assert(player.marker == "X")
-    }
+      it("should have a marker") {
+        player.marker shouldBe a [String]
+        assert(player.marker == "X")
+      }
 
-    it("should have a move generator") {
-      player.moveGenerator shouldBe a [HumanMoveGenerator]
-      assert(player.moveGenerator == humanMoveGenerator)
+      it("should have a move generator") {
+        player.moveGenerator shouldBe a [HumanMoveGenerator]
+        assert(player.moveGenerator == humanMoveGenerator)
+      }
     }
   }
 }
