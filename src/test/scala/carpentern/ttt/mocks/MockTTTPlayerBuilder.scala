@@ -1,6 +1,6 @@
-import carpentern.ttt.Player
-import carpentern.ttt.PlayerBuilder
-import carpentern.ttt.MoveGenerator
+import carpentern.ttt.game.MoveGenerator
+import carpentern.ttt.game.PlayerBuilder
+import carpentern.ttt.players.Player
 
 class MockTTTPlayerBuilder extends PlayerBuilder {
   var mockGenerator = new MockMoveGenerator()

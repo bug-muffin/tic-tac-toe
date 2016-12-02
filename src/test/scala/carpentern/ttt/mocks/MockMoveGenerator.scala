@@ -1,4 +1,4 @@
-import carpentern.ttt.MoveGenerator
+import carpentern.ttt.game.MoveGenerator
 
 class MockMoveGenerator extends MoveGenerator {
   var selectSpaceCalled = false

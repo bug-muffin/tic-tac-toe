@@ -1,5 +1,5 @@
-import carpentern.ttt.Board
-import carpentern.ttt.View
+import carpentern.ttt.boards.Board
+import carpentern.ttt.game.View
 
 class MockConsoleView extends View {
   var promptOrderedOptionsCalled: Boolean = false

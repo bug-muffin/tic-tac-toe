@@ -1,4 +1,4 @@
-import carpentern.ttt.IO
+import carpentern.ttt.game.IO
 
 class MockConsoleIO extends IO {
   var getUserInputCalled: Boolean = false
@@ -17,11 +17,11 @@ class MockConsoleIO extends IO {
     displayCalled = true
   }
 
-  def stubUserInput(inputToStub:String) = {
-    stubbedUserInput = inputToStub
-  }
-
   def clear() = {
     clearCalled = true
+  }
+
+  def stubUserInput(inputToStub:String) = {
+    stubbedUserInput = inputToStub
   }
 }
