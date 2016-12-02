@@ -19,6 +19,12 @@ This version plays agains an AI optimized with the [negamax](https://en.wikipedi
 * [Java](https://java.com/en/download/)
 * [SBT](http://www.scala-sbt.org/0.13/docs/Setup.html)
 
+This application is built with SBT, a build tool for Scala similar to Java's Gradle and Maven. To install sbt through Homebrew, type
+
+```
+brew install sbt
+```
+
 ## Running the Application
 
 In your desired location from the terminal, clone the repo
@@ -33,7 +39,7 @@ Then `cd` into the application's root directory
 cd tic-tac-toe-scala
 ```
 
-This application is built with SBT, a build tool similar to Gradle and Maven for Scala. To run the application, type
+To run the application, type
 
 ```scala
 sbt run

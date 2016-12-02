@@ -21,20 +21,20 @@ class SetupSpec extends FunSpec with BeforeAndAfter {
   describe("Setup") {
     describe("#setupBoard") {
       it("should clear the screen") {
-        setup.setupBoard()
+        setup.setupBoard
 
         assert(view.clearScreenCalled == true)
       }
 
       it("should prompt the user for a board size") {
-        val board = setup.setupBoard()
+        val board = setup.setupBoard
 
         assert(view.promptOrderedOptionsCalled == true)
         assert(view.getOrderedOptionsSelectionCalled == true)
       }
 
       it("should return a board list") {
-        val board = setup.setupBoard()
+        val board = setup.setupBoard
 
         board shouldBe a [List[_]]
       }

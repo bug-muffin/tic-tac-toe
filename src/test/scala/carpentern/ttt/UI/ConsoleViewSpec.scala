@@ -86,7 +86,7 @@ class ConsoleViewSpec extends FunSpec with BeforeAndAfter {
 
     describe("#displayTieMessage") {
       it("should output a tie message when the game ends in a draw") {
-        view.displayTieMessage()
+        view.displayTieMessage
 
         assert(mockIO.displayCalled == true)
         assert(mockIO.displayCalledWith == "Game over. It's a tie.\n")
@@ -107,7 +107,7 @@ class ConsoleViewSpec extends FunSpec with BeforeAndAfter {
 
     describe("#clearScreen") {
       it("should call the UI clear function") {
-        view.clearScreen()
+        view.clearScreen
 
         assert(mockIO.clearCalled == true)
       }

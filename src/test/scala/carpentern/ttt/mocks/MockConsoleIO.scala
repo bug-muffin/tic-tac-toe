@@ -7,7 +7,7 @@ class MockConsoleIO extends IO {
   var clearCalled = false
   var stubbedUserInput: String = ""
 
-  def getUserInput() : String = {
+  def getUserInput : String = {
     getUserInputCalled = true
     stubbedUserInput
   }
@@ -17,7 +17,7 @@ class MockConsoleIO extends IO {
     displayCalled = true
   }
 
-  def clear() = {
+  def clear = {
     clearCalled = true
   }
 

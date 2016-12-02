@@ -32,7 +32,7 @@ object TicTacToe {
     val playerBuilder: TTTPlayerBuilder = new TTTPlayerBuilder(humanMoveGenerator, computerMoveGenerator)
     val setup: Setup = new Setup(playerBuilder, board, view)
     
-    val gameBoard: List[String] = setup.setupBoard()
+    val gameBoard: List[String] = setup.setupBoard
     val players: List[Player] = setup.setupPlayers(markers)
 
     game.playGame(board, gameBoard, players, view)

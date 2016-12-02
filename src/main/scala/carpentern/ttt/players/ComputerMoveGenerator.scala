@@ -5,28 +5,42 @@ import carpentern.ttt.boards.Board
 import carpentern.ttt.game.GameRules
 import carpentern.ttt.game.MoveGenerator
 
-class ComputerMoveGenerator(markers: List[String], board: Board, rules: GameRules) extends MoveGenerator {
-  val currentMarker: String = markers(0)
-  val opponentMarker: String = markers(1)
-  val depth: Int = 0
-  val baseDepth: Int = 1000
-  val maxDepth: Int = 7
-  var bestMove: Int = -1
+class ComputerMoveGenerator(
+    markers: List[String], 
+    board: Board, 
+    rules: GameRules) 
+  extends MoveGenerator {
 
-  def selectSpace(gameBoard:List[String]) : String = {
+  private val currentMarker = markers(0)
+  private val opponentMarker = markers(1)
+  private val depth = 0
+  private val baseDepth = 1000
+  private val maxDepth = 7
+  private var bestMove = -1
+
+  def selectSpace(gameBoard: List[String]): String = {
     negamax(gameBoard, currentMarker, opponentMarker, depth)
     (bestMove + 1).toString
   }
 
-  private def negamax(gameBoard:List[String], currentMarker:String, opponentMarker:String, depth:Int, alpha:Double = Double.NegativeInfinity, beta:Double = Double.PositiveInfinity) : Double = {
-    if (isTerminalNode(gameBoard, depth)) {
+  private def negamax(gameBoard: List[String], 
+                      currentMarker: String, 
+                      opponentMarker: String, 
+                      depth: Int, 
+                      alpha: Double = Double.NegativeInfinity, 
+                      beta: Double = Double.PositiveInfinity): Double = {
+    if (isTerminalNode(gameBoard, depth))
       analyzeScore(gameBoard, currentMarker, opponentMarker, depth)
-    } else {
+    else
       evaluateBoard(gameBoard, currentMarker, opponentMarker, depth, alpha, beta)
-    }
   }
 
-  private def evaluateBoard(gameBoard:List[String], currentMarker:String, opponentMarker:String, depth:Int, alpha:Double, beta:Double) = {
+  private def evaluateBoard(gameBoard: List[String], 
+                            currentMarker: String, 
+                            opponentMarker: String, 
+                            depth: Int, 
+                            alpha: Double, 
+                            beta: Double) = {
     var maxScore: Double = Double.NegativeInfinity
     var newAlpha: Double = alpha
     val openSpaces: List[Int] = board.findOpenSpaces(gameBoard)
@@ -53,18 +67,16 @@ class ComputerMoveGenerator(markers: List[String], board: Board, rules: GameRule
     newAlpha
   }
 
-  private def isTerminalNode(gameBoard:List[String], depth:Int) = {
+  private def isTerminalNode(gameBoard: List[String], depth: Int) =
     rules.isGameOver(board, gameBoard) || depth >= maxDepth
-  }
 
-  private def analyzeScore(gameBoard:List[String], currentMarker:String, opponentMarker:String, depth:Int): Int = {
+  private def analyzeScore(gameBoard: List[String], currentMarker: String, opponentMarker: String, depth: Int): Int = {
     if (rules.isWinningConditionMet(board, gameBoard)) {
       val winner: String = rules.findWinningMarker(board, gameBoard)
-      if (winner == currentMarker) {
-        return baseDepth - depth
-      } else {
-        return depth - baseDepth
-      }
+      if (winner == currentMarker) 
+        baseDepth - depth 
+      else 
+        depth - baseDepth
     } else {
       return 0
     }
