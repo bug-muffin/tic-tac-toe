@@ -1,19 +1,26 @@
 import org.scalatest.FunSpec
 import org.scalatest.Matchers._
 import scala.collection.immutable.HashMap
+import carpentern.ttt.Board
+import carpentern.ttt.ComputerMoveGenerator
 import carpentern.ttt.HumanMoveGenerator
+import carpentern.ttt.GameRules
 import carpentern.ttt.Player
 import carpentern.ttt.TTTPlayerBuilder
 
 class TTTPlayerBuilderSpec extends FunSpec {
-  val playerBuilder = new TTTPlayerBuilder()
+  val view = new MockConsoleView()
+  val markers = List("X", "O")
+  val board = new Board()
+  val rules = new GameRules()
+  val humanMoveGenerator = new HumanMoveGenerator(view)
+  val computerMoveGenerator = new ComputerMoveGenerator(markers, board, rules)
+  val playerBuilder = new TTTPlayerBuilder(humanMoveGenerator, computerMoveGenerator)
 
   describe("#buildPlayer") {
     val name = "Player 1"
     val marker = "X"
-    val view = new MockConsoleView()
-    val generator = new HumanMoveGenerator(view)
-    val player = playerBuilder.buildPlayer(name, marker, generator)
+    val player = playerBuilder.buildPlayer(name, marker)
 
     it("should create a player") {
       player shouldBe a [Player]
@@ -31,7 +38,7 @@ class TTTPlayerBuilderSpec extends FunSpec {
 
     it("should have a move generator") {
       player.moveGenerator shouldBe a [HumanMoveGenerator]
-      assert(player.moveGenerator == generator)
+      assert(player.moveGenerator == humanMoveGenerator)
     }
   }
 }

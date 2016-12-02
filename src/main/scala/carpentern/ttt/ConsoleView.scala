@@ -1,13 +1,35 @@
 package carpentern.ttt
 
-class ConsoleView(io: IO, validator: MoveValidator, presenter: BoardPresenter) extends View {
+class ConsoleView(io: IO, moveValidator: MoveValidator, presenter: BoardPresenter) extends View {
+  def promptOrderedOptions(prompt:String, options:List[String]) = {
+    io.display(prompt)
+    for (option <- options) {
+      io.display(option)
+    }
+  }
+
+  def getOrderedOptionsSelection(options:List[String]): String = {
+    var input = io.getUserInput()
+    while (!moveValidator.isValidNumber(input, options)) {
+      io.display("Invalid selection")
+      io.display(s"Select a numbered option from 1 to ${options.length}: ")
+      input = io.getUserInput()
+    }
+    input
+  }
+
+  def getPlayerName(order:String) : String = {
+    io.display(s"\n$order player, what is your name?: ")
+    io.getUserInput()
+  }
+
   def promptPlayerMove(playerName:String) = {
     io.display(s"$playerName, please select a space.\n")
   }
 
   def getPlayerMove(board:List[String]) : String = {
     var move = io.getUserInput()
-    while (!validator.isValid(board, move)) {
+    while (!moveValidator.isValid(board, move)) {
       io.display(s"Invalid move. Select an open space from 1 to ${board.length}\n")
       move = io.getUserInput()
     }

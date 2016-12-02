@@ -1,23 +1,15 @@
 package carpentern.ttt
 
-class MoveValidator {
+class MoveValidator extends NumberValidator {
   def isValid(board:List[String], move:String) : Boolean = {
-    isValidNumber(move) && isValidSpace(board, move) && isOpenSpace(board, move)
+    isValidNumber(move, board) && isOpenSpace(move, board)
   }
 
-  private def isValidNumber(move:String) : Boolean = {
-    !isBlank(move) && move.forall(_.isDigit)
+  override def isValidNumber(number:String, collection:List[String]) : Boolean = {
+    super.isValidNumber(number, collection)
   }
 
-  private def isBlank(move:String) : Boolean = {
-    move.isEmpty || move.forall(_.isWhitespace)
-  }
-
-  private def isValidSpace(board:List[String], move:String) : Boolean = {
-    move.toInt > 0 && move.toInt <= board.length
-  }
-
-  private def isOpenSpace(board:List[String], move:String) : Boolean = {
+  private def isOpenSpace(move:String, board:List[String]) : Boolean = {
     board(move.toInt - 1) == ""
   }
 }

@@ -1,7 +1,11 @@
 package carpentern.ttt
 
-class TTTPlayerBuilder extends PlayerBuilder {
-  def buildPlayer(name: String, marker: String, generator: MoveGenerator) : Player = {
-    new Player(name, marker, generator)
+class TTTPlayerBuilder(humanMoveGenerator:MoveGenerator, computerMoveGenerator:MoveGenerator) extends PlayerBuilder {
+  def buildPlayer(name: String, marker: String) : Player = {
+    if (name != "Computer") {
+      return new Player(name, marker, humanMoveGenerator)
+    } else {
+      return new Player(name, marker, computerMoveGenerator)
+    }
   }
 }
