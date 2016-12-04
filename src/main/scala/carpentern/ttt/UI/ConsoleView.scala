@@ -33,10 +33,10 @@ class ConsoleView(io: IO, moveValidator: MoveValidator, presenter: BoardPresente
     io.display(s"$playerName, please select a space.\n")
   }
 
-  def getPlayerMove(board: List[String]): String = {
+  def getPlayerMove(board: Board): String = {
     var move: String = io.getUserInput
-    while (!moveValidator.isValid(board, move)) {
-      io.display(s"Invalid move. Select an open space from 1 to ${board.length}\n")
+    while (!moveValidator.isValid(board.squares, move)) {
+      io.display(s"Invalid move. Select an open space from 1 to ${board.boardSize}\n")
       move = io.getUserInput
     }
     move

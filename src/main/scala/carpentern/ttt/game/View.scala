@@ -7,7 +7,7 @@ trait View {
   def getOrderedOptionsSelection(options: List[String]): String
   def getPlayerName(order: String): String
   def promptPlayerMove(playerName: String)
-  def getPlayerMove(gameBoard: List[String]): String
+  def getPlayerMove(board: Board): String
   def displayWinningMessage(winner: String)
   def displayTieMessage
   def printBoard(board: Board, gameBoard: List[String])

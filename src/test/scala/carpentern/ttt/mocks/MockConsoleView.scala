@@ -19,32 +19,32 @@ class MockConsoleView extends View {
   var stubbedPlayerName: String = _
   var stubbedPlayerMove: String = _
 
-  def promptOrderedOptions(prompt:String, options:List[String]) = {
+  def promptOrderedOptions(prompt: String, options: List[String]) = {
     promptOrderedOptionsCalled = true
   }
 
-  def getOrderedOptionsSelection(options:List[String]) : String = {
+  def getOrderedOptionsSelection(options: List[String]): String = {
     getOrderedOptionsSelectionCalled = true
     stubbedSelection
   }
 
-  def getPlayerName(order:String) : String = {
+  def getPlayerName(order: String): String = {
     getPlayerNameCalledWith = order
     getPlayerNameCalled = true
     stubbedPlayerName
   }
 
-  def promptPlayerMove(playerName:String) = {
+  def promptPlayerMove(playerName: String) = {
     promptPlayerMoveCalledWith = playerName
     promptPlayerMoveCalled = true
   }
 
-  def getPlayerMove(board:List[String]) : String = {
+  def getPlayerMove(board: Board): String = {
     getPlayerMoveCalled = true
     stubbedPlayerMove
   }
 
-  def displayWinningMessage(winner:String) = {
+  def displayWinningMessage(winner: String) = {
     displayWinningMessageCalledWith = winner
     displayWinningMessageCalled = true
   }
@@ -53,7 +53,7 @@ class MockConsoleView extends View {
     displayTieMessageCalled = true
   }
 
-  def printBoard(board:Board, currentBoard:List[String]) = {
+  def printBoard(board:Board, currentBoard: List[String]) = {
     printBoardCalledWith = currentBoard.toString
     printBoardCalled = true
   }
@@ -62,15 +62,15 @@ class MockConsoleView extends View {
     clearScreenCalled = true
   }
 
-  def stubSelection(selectionToStub:String) = {
+  def stubSelection(selectionToStub: String) = {
     stubbedSelection = selectionToStub
   }
 
-  def stubPlayerName(nameToStub:String) = {
+  def stubPlayerName(nameToStub: String) = {
     stubbedPlayerName = nameToStub
   }
 
-  def stubPlayerMove(moveToStub:String) = {
+  def stubPlayerMove(moveToStub: String) = {
     stubbedPlayerMove = moveToStub
   }
 }

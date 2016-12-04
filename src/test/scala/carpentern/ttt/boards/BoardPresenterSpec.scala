@@ -4,11 +4,13 @@ import carpentern.ttt.boards.Board
 import carpentern.ttt.boards.BoardPresenter
 
 class BoardPresenterSpec extends FunSpec with BeforeAndAfter {
-  var board: Board = _
+  var board_3x3: Board = _
+  var board_4x4: Board = _
   var presenter: BoardPresenter = _
 
   before {
-    board = new Board()
+    board_3x3 = Board(9)
+    board_4x4 = Board(16)
     presenter = new BoardPresenter()
   }
 
@@ -23,7 +25,7 @@ class BoardPresenterSpec extends FunSpec with BeforeAndAfter {
                                "===+===+===\n" +
                                " X | X | X\n"
 
-          assert(presenter.formatBoardToString(board, tempBoard) == expectedResult)
+          assert(presenter.formatBoardToString(board_3x3, tempBoard) == expectedResult)
         }
 
         it("should correctly format an empty board") {
@@ -34,7 +36,7 @@ class BoardPresenterSpec extends FunSpec with BeforeAndAfter {
                                "===+===+===\n" +
                                "   |   |  \n"
 
-          assert(presenter.formatBoardToString(board, tempBoard) == expectedResult)
+          assert(presenter.formatBoardToString(board_3x3, tempBoard) == expectedResult)
         }
 
         it("should correctly format a board with board positions") {
@@ -45,7 +47,7 @@ class BoardPresenterSpec extends FunSpec with BeforeAndAfter {
                                "===+===+===\n" +
                                " 7 | 8 | 9\n"
 
-          assert(presenter.formatBoardToString(board, tempBoard) == expectedResult)
+          assert(presenter.formatBoardToString(board_3x3, tempBoard) == expectedResult)
         }
       }
 
@@ -60,7 +62,7 @@ class BoardPresenterSpec extends FunSpec with BeforeAndAfter {
                                "===+===+===+===\n" +
                                " X | X | X | X\n"
 
-          assert(presenter.formatBoardToString(board, tempBoard) == expectedResult)
+          assert(presenter.formatBoardToString(board_4x4, tempBoard) == expectedResult)
         }
 
         it("should correctly format an empty board") {
@@ -73,7 +75,7 @@ class BoardPresenterSpec extends FunSpec with BeforeAndAfter {
                                "===+===+===+===\n" +
                                "   |   |   |  \n"
 
-          assert(presenter.formatBoardToString(board, tempBoard) == expectedResult)
+          assert(presenter.formatBoardToString(board_4x4, tempBoard) == expectedResult)
         }
 
         it("should correctly format a board with board positions") {
@@ -86,7 +88,7 @@ class BoardPresenterSpec extends FunSpec with BeforeAndAfter {
                                "====+====+====+====\n" +
                                " 13 | 14 | 15 | 16\n"
 
-          assert(presenter.formatBoardToString(board, tempBoard) == expectedResult)
+          assert(presenter.formatBoardToString(board_4x4, tempBoard) == expectedResult)
         }
       }
     }

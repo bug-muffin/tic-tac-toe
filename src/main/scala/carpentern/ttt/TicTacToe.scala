@@ -21,20 +21,18 @@ object TicTacToe {
     val presenter: BoardPresenter = new BoardPresenter()
     val view: ConsoleView = new ConsoleView(io, moveValidator, presenter)
 
-    val board: Board = new Board()
-
     val gameRules: GameRules = new GameRules()
     val game: GameRunner = new GameRunner(gameRules)
 
     val markers: List[String] = List("X", "O")
     val humanMoveGenerator: HumanMoveGenerator = new HumanMoveGenerator(view)
-    val computerMoveGenerator: ComputerMoveGenerator = new ComputerMoveGenerator(markers, board, gameRules)
+    val computerMoveGenerator: ComputerMoveGenerator = new ComputerMoveGenerator(markers, gameRules)
     val playerBuilder: TTTPlayerBuilder = new TTTPlayerBuilder(humanMoveGenerator, computerMoveGenerator)
-    val setup: Setup = new Setup(playerBuilder, board, view)
+    val setup: Setup = new Setup(playerBuilder, view)
     
-    val gameBoard: List[String] = setup.setupBoard
+    val board: Board = setup.setupBoard
     val players: List[Player] = setup.setupPlayers(markers)
 
-    game.playGame(board, gameBoard, players, view)
+    game.playGame(board, players, view)
   }
 }

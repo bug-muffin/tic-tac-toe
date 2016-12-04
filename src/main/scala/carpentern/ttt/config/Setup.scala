@@ -6,8 +6,8 @@ import carpentern.ttt.game.View
 import carpentern.ttt.game.PlayerBuilder
 import carpentern.ttt.players.Player
 
-class Setup(playerBuilder: PlayerBuilder, board: Board, view: View) {
-  def setupBoard: List[String] = {
+class Setup(playerBuilder: PlayerBuilder, view: View) {
+  def setupBoard: Board = {
     view.clearScreen
 
     val prompt: String = "Do you want to play with a 3x3 board or a 4x4 board?\n"
@@ -21,8 +21,8 @@ class Setup(playerBuilder: PlayerBuilder, board: Board, view: View) {
     createPlayers(playMode, markers)
   }
 
-  private def createBoard(selection: String): List[String] =
-    if (selection == "1") board.createGameBoard(9) else board.createGameBoard(16)
+  private def createBoard(selection: String): Board =
+    if (selection == "1") Board(9) else Board(16)
 
   private def selectPlayMode: String = {
     val prompt: String = "\nPlease select your mode of play:\n"

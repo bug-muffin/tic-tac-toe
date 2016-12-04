@@ -2,11 +2,11 @@ package carpentern.ttt.boards
 import scala.collection.mutable.ListBuffer
 
 class BoardPresenter {
-  def formatBoardToString(board: Board, gameBoard: List[String]): String = {
-    val rowCount: Int = board.countRows(gameBoard)
-    val formattedBoard: List[String] = addLeadingSpaces(gameBoard)
+  def formatBoardToString(board: Board, squares: List[String]): String = {
+    val rowCount: Int = board.countRows
+    val formattedBoard: List[String] = addLeadingSpaces(squares)
     var formattedRows = new ListBuffer[String]()
-    val rows: List[List[String]] = board.separateRows(formattedBoard)
+    val rows: List[List[String]] = separateRows(rowCount, formattedBoard)
     for ((x, i) <- rows.view.zipWithIndex) { 
       formattedRows += (formatRow(x, rowCount) mkString)
       addHorizontalFillersBetweenRows(i, formattedRows, rowCount, formattedBoard)
@@ -14,17 +14,23 @@ class BoardPresenter {
     formattedRows mkString
   }
 
-  private def addLeadingSpaces(gameBoard: List[String]): List[String] =
-    gameBoard.map( x => addSpace(x, gameBoard))
+  private def addLeadingSpaces(squares: List[String]): List[String] =
+    squares.map( x => addSpace(x, squares))
 
-  private def addSpace(placeholder: String, gameBoard: List[String]): String =
-    if (placeholder == "" || hasSomeTwoDigitSpaces(placeholder, gameBoard)) "  " + placeholder else " " + placeholder
+  private def addSpace(placeholder: String, squares: List[String]): String =
+    if (placeholder == "" || hasSomeTwoDigitSpaces(placeholder, squares)) 
+      "  " + placeholder 
+    else
+      " " + placeholder
 
-  private def hasSomeTwoDigitSpaces(placeholder: String, gameBoard: List[String]): Boolean =
-    placeholder.length < 2 && hasMultipleDigits(gameBoard, 1)
+  private def hasSomeTwoDigitSpaces(placeholder: String, squares: List[String]): Boolean =
+    placeholder.length < 2 && hasMultipleDigits(squares, 1)
 
   private def hasMultipleDigits(board: List[String], limit: Int): Boolean =
     board.find(x => x.length > limit) != None
+
+  private def separateRows(rowCount: Int, formattedBoard: List[String]) : List[List[String]] = 
+    formattedBoard.grouped(rowCount).toList
 
   private def formatRow(row: List[String], rowCount: Int): List[String] = {
     val verticalFillers: List[String] = constructVerticalFillers(rowCount)

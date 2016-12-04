@@ -2,54 +2,41 @@ package carpentern.ttt.boards
 
 import scala.collection.mutable.ListBuffer
 
-class Board {
-  def createGameBoard(boardSize: Int) = List.fill(boardSize)("")
+object Board {
+  def apply(boardSize: Int): Board = new Board(boardSize, List.fill(boardSize)(""))
+}
 
-  def countRows(gameBoard: List[String]): Int =
-    math.sqrt(gameBoard.length).toInt
+case class Board(boardSize: Int, squares: List[String]) {
 
-  def findRows(gameBoard: List[String]): List[List[Int]] = {
-    val rowCount: Int = countRows(gameBoard)
-    boardPositions(gameBoard).grouped(rowCount).toList
-  }
+  def placePiece(space: Int, marker: String): Board =
+    new Board(boardSize, squares.updated(space - 1, marker))
 
-  def findColumns(gameBoard: List[String]): List[List[Int]] = {
-    val rows: List[List[Int]] = findRows(gameBoard)
-    rows.transpose
-  }
+  def countRows: Int = math.sqrt(boardSize).toInt
 
-  def findDiagonals(gameBoard: List[String]): List[List[Int]] = {
-    val rows: List[List[Int]] = findRows(gameBoard)
-    List(findForwardsDiagonal(gameBoard, rows), findBackwardsDiagonal(gameBoard, rows))
-  }
+  def findRows: List[List[Int]] = boardPositions.grouped(countRows).toList
 
-  def separateRows(gameBoard: List[String]): List[List[String]] = {
-    val rowCount: Int = countRows(gameBoard)
-    gameBoard.grouped(rowCount).toList
-  }
+  def findColumns: List[List[Int]] = findRows.transpose
 
-  def findOpenSpaces(gameBoard: List[String]): List[Int] =
-    gameBoard.zipWithIndex.collect{ case(x, i) if x == "" => i }
+  def findDiagonals: List[List[Int]] = List(findForwardsDiagonal, findBackwardsDiagonal)
 
-  def placePiece(gameBoard: List[String], space: Int, marker: String): List[String] =
-    gameBoard.updated(space - 1, marker)
+  def findOpenSpaces: List[Int] = squares.zipWithIndex.collect{ case(x, i) if x == "" => i }
 
-  def printableBoardPositions(boardPositions: List[Int]): List[String] =
-    boardPositions.map((_ + 1)).map(_.toString)
+  def printableBoardPositions: List[String] = boardPositions.map((_ + 1)).map(_.toString)
 
-  def boardPositions(gameBoard: List[String]): List[Int] =
-    List.range(0, gameBoard.length)
+  def boardPositions: List[Int] = List.range(0, boardSize)
 
-  private def findForwardsDiagonal(gameBoard: List[String], rows: List[List[Int]]): List[Int] = {
+  private def findForwardsDiagonal: List[Int] = {
     var diagonals = new ListBuffer[Int]()
+    var rows = findRows
     for (x <- 0 to rows.length - 1) {
       diagonals += rows(x)(x)
     }
     diagonals.toList
   }
 
-  private def findBackwardsDiagonal(gameBoard: List[String], rows: List[List[Int]]): List[Int] = {
+  private def findBackwardsDiagonal: List[Int] = {
     var diagonals = new ListBuffer[Int]()
+    var rows = findRows
     for (x <- 0 to rows.length - 1) {
       diagonals += rows(x)((rows.length - 1) - x)
     }

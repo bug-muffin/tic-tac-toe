@@ -9,13 +9,12 @@ import carpentern.ttt.config.Setup
 
 class SetupSpec extends FunSpec with BeforeAndAfter {
   val markers = List("X", "O")
-  val board = new Board()
   val playerBuilder = new MockTTTPlayerBuilder()
   val view = new MockConsoleView()
   var setup: Setup = _
   
   before {
-    setup = new Setup(playerBuilder, board, view)
+    setup = new Setup(playerBuilder, view)
   }
 
   describe("Setup") {
@@ -33,10 +32,10 @@ class SetupSpec extends FunSpec with BeforeAndAfter {
         assert(view.getOrderedOptionsSelectionCalled == true)
       }
 
-      it("should return a board list") {
+      it("should return a board object") {
         val board = setup.setupBoard
 
-        board shouldBe a [List[_]]
+        board shouldBe a [Board]
       }
     }
 

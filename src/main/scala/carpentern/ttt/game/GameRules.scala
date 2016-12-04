@@ -3,44 +3,44 @@ package carpentern.ttt.game
 import carpentern.ttt.boards.Board
 
 class GameRules {
-  def isTieConditionMet(gameBoard: List[String]): Boolean = !gameBoard.contains("")
+  def isTieConditionMet(board: Board): Boolean = !board.squares.contains("")
 
-  def isWinningConditionMet(board: Board, gameBoard: List[String]): Boolean = {
-    val winningCombinations: List[List[Int]] = findWinningCombinations(board, gameBoard)
+  def isWinningConditionMet(board: Board): Boolean = {
+    val winningCombinations: List[List[Int]] = findWinningCombinations(board)
     for (winningCombo <- winningCombinations) {
-      if (isWinner(gameBoard, winningCombo)) {
+      if (isWinner(board, winningCombo)) {
         return true
       }
     }
     return false
   }
 
-  def findWinningMarker(board: Board, gameBoard: List[String]): String = {
-    val winningCombinations: List[List[Int]] = findWinningCombinations(board, gameBoard)
+  def findWinningMarker(board: Board): String = {
+    val winningCombinations: List[List[Int]] = findWinningCombinations(board)
     for (winningCombo <- winningCombinations) {
-      if (isWinner(gameBoard, winningCombo)) {
-        return identifyWinner(gameBoard, winningCombo)
+      if (isWinner(board, winningCombo)) {
+        return identifyWinner(board, winningCombo)
       }
     }
     return ""
   }
 
-  def isGameOver(board: Board, gameBoard: List[String]): Boolean =
-    isTieConditionMet(gameBoard) || isWinningConditionMet(board, gameBoard)
+  def isGameOver(board: Board): Boolean =
+    isTieConditionMet(board) || isWinningConditionMet(board)
 
-  private def findWinningCombinations(board: Board, gameBoard: List[String]): List[List[Int]] =
-    List(board.findRows(gameBoard), board.findColumns(gameBoard), board.findDiagonals(gameBoard)).flatten
+  private def findWinningCombinations(board: Board): List[List[Int]] =
+    List(board.findRows, board.findColumns, board.findDiagonals).flatten
 
-  private def isWinner(gameBoard: List[String], winningCombo: List[Int]): Boolean = {
-    val comboValues: List[String] = findValuesAtComboPositions(gameBoard, winningCombo)
+  private def isWinner(board: Board, winningCombo: List[Int]): Boolean = {
+    val comboValues: List[String] = findValuesAtComboPositions(board, winningCombo)
     isMatchedCombination(comboValues)
   }
 
-  private def identifyWinner(gameBoard: List[String], winningCombo: List[Int]): String =
-    findValuesAtComboPositions(gameBoard, winningCombo)(0)
+  private def identifyWinner(board: Board, winningCombo: List[Int]): String =
+    findValuesAtComboPositions(board, winningCombo)(0)
 
-  private def findValuesAtComboPositions(gameBoard: List[String], winningCombo: List[Int]): List[String] =
-    winningCombo.map(gameBoard)
+  private def findValuesAtComboPositions(board: Board, winningCombo: List[Int]): List[String] =
+    winningCombo.map(board.squares)
 
   private def isMatchedCombination(comboValues: List[String]): Boolean =
     comboValues.distinct.length == 1 && comboValues(0) != ""

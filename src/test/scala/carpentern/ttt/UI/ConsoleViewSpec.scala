@@ -65,10 +65,10 @@ class ConsoleViewSpec extends FunSpec with BeforeAndAfter {
     
     describe("#getPlayerMove") {
       it("returns a valid move") {
-        val tempBoard = List("", "", "", "", "", "", "", "", "")
+        val board = Board(9)
         mockIO.stubUserInput("3")
 
-        assert(view.getPlayerMove(tempBoard) == "3")
+        assert(view.getPlayerMove(board) == "3")
         assert(mockIO.getUserInputCalled == true)
       }
     }
@@ -95,10 +95,10 @@ class ConsoleViewSpec extends FunSpec with BeforeAndAfter {
 
     describe("#printBoard") {
       it("should print the board as a string") {
-        val board = new Board()
-        val tempBoard = List("X", "O", "O", "O", "X", "X", "X", "O", "X")
+        val board = Board(9)
+        val squares = List("X", "O", "O", "O", "X", "X", "X", "O", "X")
         
-        view.printBoard(board, tempBoard)
+        view.printBoard(board, squares)
 
         assert(mockIO.displayCalled == true)
         assert(mockIO.displayCalledWith == " X | O | O\n===+===+===\n O | X | X\n===+===+===\n X | O | X\n\n")

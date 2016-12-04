@@ -1,5 +1,6 @@
 import org.scalatest.FunSpec
 import org.scalatest.BeforeAndAfter
+import carpentern.ttt.boards.Board
 import carpentern.ttt.players.HumanMoveGenerator
 
 class HumanMoveGeneratorSpec extends FunSpec with BeforeAndAfter {
@@ -13,10 +14,10 @@ class HumanMoveGeneratorSpec extends FunSpec with BeforeAndAfter {
   describe("HumanMoveGenerator") {
     describe("#selectSpace") {
       it("should return a valid space") {
-        val tempBoard = List("", "", "", "", "", "", "", "", "")
+        val board = Board(9)
         mockView.stubPlayerMove("1")
 
-        assert(moveGenerator.selectSpace(tempBoard) == "1")
+        assert(moveGenerator.selectSpace(board) == "1")
         assert(mockView.getPlayerMoveCalled == true)
       }
     }
