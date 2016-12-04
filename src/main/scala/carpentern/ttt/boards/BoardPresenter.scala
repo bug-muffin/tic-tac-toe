@@ -2,12 +2,19 @@ package carpentern.ttt.boards
 import scala.collection.mutable.ListBuffer
 
 class BoardPresenter {
-  def formatBoardToString(board: Board, squares: List[String]): String = {
+  def formatBoardValuesToString(board: Board): String = formatToString(board, board.squares)
+
+  def formatBoardPositionsToString(board: Board): String = {
+    val boardPositions = board.boardPositions.map((_ + 1)).map(_.toString)
+    formatToString(board, boardPositions)
+  }
+
+  private def formatToString(board: Board, squares: List[String]) : String = {
     val rowCount: Int = board.countRows
     val formattedBoard: List[String] = addLeadingSpaces(squares)
     var formattedRows = new ListBuffer[String]()
     val rows: List[List[String]] = separateRows(rowCount, formattedBoard)
-    for ((x, i) <- rows.view.zipWithIndex) { 
+    for ((x, i) <- rows.view.zipWithIndex) {
       formattedRows += (formatRow(x, rowCount) mkString)
       addHorizontalFillersBetweenRows(i, formattedRows, rowCount, formattedBoard)
     }
@@ -18,8 +25,8 @@ class BoardPresenter {
     squares.map( x => addSpace(x, squares))
 
   private def addSpace(placeholder: String, squares: List[String]): String =
-    if (placeholder == "" || hasSomeTwoDigitSpaces(placeholder, squares)) 
-      "  " + placeholder 
+    if (placeholder == "" || hasSomeTwoDigitSpaces(placeholder, squares))
+      "  " + placeholder
     else
       " " + placeholder
 
@@ -29,7 +36,7 @@ class BoardPresenter {
   private def hasMultipleDigits(board: List[String], limit: Int): Boolean =
     board.find(x => x.length > limit) != None
 
-  private def separateRows(rowCount: Int, formattedBoard: List[String]) : List[List[String]] = 
+  private def separateRows(rowCount: Int, formattedBoard: List[String]) : List[List[String]] =
     formattedBoard.grouped(rowCount).toList
 
   private def formatRow(row: List[String], rowCount: Int): List[String] = {
@@ -49,9 +56,9 @@ class BoardPresenter {
 
   private def appendRowWithNewLine(flattenedRow: List[String]): List[String] = flattenedRow :+ "\n"
 
-  private def addHorizontalFillersBetweenRows(index: Int, 
-                                              formattedRows: ListBuffer[String], 
-                                              rowCount: Int, 
+  private def addHorizontalFillersBetweenRows(index: Int,
+                                              formattedRows: ListBuffer[String],
+                                              rowCount: Int,
                                               formattedBoard: List[String]) = {
     if (index != rowCount - 1) {
       addHorizontalFillers(formattedRows, rowCount, formattedBoard)
@@ -66,8 +73,8 @@ class BoardPresenter {
 
   private def createDivider(rowCount: Int, formattedBoard: List[String]): String = {
     if (formattedBoard.find(x => x.length > 2) == None && rowCount == 4)
-      "=" * (rowCount - 1) 
-    else 
+      "=" * (rowCount - 1)
+    else
       "=" * rowCount
   }
 }

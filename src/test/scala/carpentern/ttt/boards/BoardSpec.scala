@@ -99,16 +99,6 @@ class BoardSpec extends FunSpec with BeforeAndAfter {
       }
     }
 
-    describe("#printableBoardPositions") {
-      it("should return a list of strings from 1 to 9 for a 3 x 3 board") {
-        assert(board_3x3.printableBoardPositions == List("1", "2", "3", "4", "5", "6", "7", "8", "9"))
-      }
-
-      it("should return a list of strings from 1 to 16 for a 4 x 4 board") {
-        assert(board_4x4.printableBoardPositions == List("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"))
-      }
-    }
-
     describe("boardPositions") {
       it("should return a list of indices from 0 to 8 for a 3 x 3 board") {
         assert(board_3x3.boardPositions == List(0, 1, 2, 3, 4, 5, 6, 7, 8))

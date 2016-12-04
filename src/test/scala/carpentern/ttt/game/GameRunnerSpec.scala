@@ -46,7 +46,16 @@ class GameRunnerSpec extends FunSpec with BeforeAndAfter {
 
         game.playGame(newBoard, mockVMock(), view)
 
-        assert(view.clearScreenCalled == true)
+        assert(view.clearScreenCalled)
+      }
+
+      it("should display the board positions") {
+        mockGenerator.stubSelectSpace("1")
+        val newBoard = board.copy(squares = lastMoveBoard)
+
+        game.playGame(newBoard, mockVMock(), view)
+
+        assert(view.printBoardPositionsCalled)
       }
 
       it("should display the board") {
@@ -55,7 +64,7 @@ class GameRunnerSpec extends FunSpec with BeforeAndAfter {
 
         game.playGame(newBoard, mockVMock(), view)
 
-        assert(view.printBoardCalled == true)      
+        assert(view.printBoardValuesCalled)
       }
 
       it("should prompt the player for a move") {
@@ -64,7 +73,7 @@ class GameRunnerSpec extends FunSpec with BeforeAndAfter {
 
         game.playGame(newBoard, mockVMock(), view)
 
-        assert(view.promptPlayerMoveCalled == true)  
+        assert(view.promptPlayerMoveCalled)
         assert(view.promptPlayerMoveCalledWith == "p1")
       }
 
@@ -75,7 +84,7 @@ class GameRunnerSpec extends FunSpec with BeforeAndAfter {
 
         game.playGame(newBoard, mockVComputer(), view)
 
-        assert(view.displayTieMessageCalled == true)
+        assert(view.displayTieMessageCalled)
       }
 
       it("should display a winning message with the player's name when the player wins") {
@@ -85,7 +94,7 @@ class GameRunnerSpec extends FunSpec with BeforeAndAfter {
 
         game.playGame(newBoard, mockVComputer, view)
 
-        assert(view.displayWinningMessageCalled == true)
+        assert(view.displayWinningMessageCalled)
         assert(view.displayWinningMessageCalledWith == "p1")
       }
     }

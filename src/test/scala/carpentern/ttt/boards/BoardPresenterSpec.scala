@@ -15,81 +15,77 @@ class BoardPresenterSpec extends FunSpec with BeforeAndAfter {
   }
 
   describe("BoardPresenter") {
-    describe("#formatBoardToString") {
-      describe("3x3 board") {
-        it("should correctly format a board with markers") {
-          val tempBoard = List.fill(9)("X")
-          val expectedResult = " X | X | X\n" +
-                               "===+===+===\n" +
-                               " X | X | X\n" + 
-                               "===+===+===\n" +
-                               " X | X | X\n"
+    describe("#formatBoardValuesToString") {
+      it("should correctly format a 3 x 3 board with markers") {
+        val tempBoard = List.fill(9)("X")
+        val newBoard = board_3x3.copy(squares = tempBoard)
+        val expectedResult = " X | X | X\n" +
+                             "===+===+===\n" +
+                             " X | X | X\n" +
+                             "===+===+===\n" +
+                             " X | X | X\n"
 
-          assert(presenter.formatBoardToString(board_3x3, tempBoard) == expectedResult)
-        }
-
-        it("should correctly format an empty board") {
-          val tempBoard = List.fill(9)("")
-          val expectedResult = "   |   |  \n" +
-                               "===+===+===\n" +
-                               "   |   |  \n" + 
-                               "===+===+===\n" +
-                               "   |   |  \n"
-
-          assert(presenter.formatBoardToString(board_3x3, tempBoard) == expectedResult)
-        }
-
-        it("should correctly format a board with board positions") {
-          val tempBoard = List("1", "2", "3", "4", "5", "6", "7", "8", "9")
-          val expectedResult = " 1 | 2 | 3\n" +
-                               "===+===+===\n" +
-                               " 4 | 5 | 6\n" + 
-                               "===+===+===\n" +
-                               " 7 | 8 | 9\n"
-
-          assert(presenter.formatBoardToString(board_3x3, tempBoard) == expectedResult)
-        }
+        assert(presenter.formatBoardValuesToString(newBoard) == expectedResult)
       }
 
-      describe("4x4 board") {
-        it("should correctly format a board with markers") {
-          val tempBoard = List.fill(16)("X")
-          val expectedResult = " X | X | X | X\n" +
-                               "===+===+===+===\n" +
-                               " X | X | X | X\n" + 
-                               "===+===+===+===\n" +
-                               " X | X | X | X\n" + 
-                               "===+===+===+===\n" +
-                               " X | X | X | X\n"
+      it("should correctly format an empty 3 x 3 board") {
+        val expectedResult = "   |   |  \n" +
+                             "===+===+===\n" +
+                             "   |   |  \n" +
+                             "===+===+===\n" +
+                             "   |   |  \n"
 
-          assert(presenter.formatBoardToString(board_4x4, tempBoard) == expectedResult)
-        }
+        assert(presenter.formatBoardValuesToString(board_3x3) == expectedResult)
+      }
 
-        it("should correctly format an empty board") {
-          val tempBoard = List.fill(16)("")
-          val expectedResult = "   |   |   |  \n" +
-                               "===+===+===+===\n" +
-                               "   |   |   |  \n" +
-                               "===+===+===+===\n" +
-                               "   |   |   |  \n" +
-                               "===+===+===+===\n" +
-                               "   |   |   |  \n"
+      it("should correctly format a 4 x 4 board with markers") {
+        val tempBoard = List.fill(16)("X")
+        val newBoard = board_4x4.copy(squares = tempBoard)
+        val expectedResult = " X | X | X | X\n" +
+                             "===+===+===+===\n" +
+                             " X | X | X | X\n" +
+                             "===+===+===+===\n" +
+                             " X | X | X | X\n" +
+                             "===+===+===+===\n" +
+                             " X | X | X | X\n"
 
-          assert(presenter.formatBoardToString(board_4x4, tempBoard) == expectedResult)
-        }
+        assert(presenter.formatBoardValuesToString(newBoard) == expectedResult)
+      }
 
-        it("should correctly format a board with board positions") {
-          val tempBoard = List("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16")
-          val expectedResult = "  1 |  2 |  3 |  4\n" +
-                               "====+====+====+====\n" +
-                               "  5 |  6 |  7 |  8\n" +
-                               "====+====+====+====\n" +
-                               "  9 | 10 | 11 | 12\n" +
-                               "====+====+====+====\n" +
-                               " 13 | 14 | 15 | 16\n"
+      it("should correctly format an empty 4 x 4 board") {
+        val expectedResult = "   |   |   |  \n" +
+                             "===+===+===+===\n" +
+                             "   |   |   |  \n" +
+                             "===+===+===+===\n" +
+                             "   |   |   |  \n" +
+                             "===+===+===+===\n" +
+                             "   |   |   |  \n"
 
-          assert(presenter.formatBoardToString(board_4x4, tempBoard) == expectedResult)
-        }
+        assert(presenter.formatBoardValuesToString(board_4x4) == expectedResult)
+      }
+    }
+
+    describe("#formatBoardPositionsToString") {
+      it("should correctly format a 3 x 3 board with board positions") {
+        val expectedResult = " 1 | 2 | 3\n" +
+                             "===+===+===\n" +
+                             " 4 | 5 | 6\n" +
+                             "===+===+===\n" +
+                             " 7 | 8 | 9\n"
+
+        assert(presenter.formatBoardPositionsToString(board_3x3) == expectedResult)
+      }
+
+      it("should correctly format a 4 x 4 board with board positions") {
+        val expectedResult = "  1 |  2 |  3 |  4\n" +
+                             "====+====+====+====\n" +
+                             "  5 |  6 |  7 |  8\n" +
+                             "====+====+====+====\n" +
+                             "  9 | 10 | 11 | 12\n" +
+                             "====+====+====+====\n" +
+                             " 13 | 14 | 15 | 16\n"
+
+        assert(presenter.formatBoardPositionsToString(board_4x4) == expectedResult)
       }
     }
   }

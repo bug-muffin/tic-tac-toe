@@ -21,9 +21,7 @@ case class Board(boardSize: Int, squares: List[String]) {
 
   def findOpenSpaces: List[Int] = squares.zipWithIndex.collect{ case(x, i) if x == "" => i }
 
-  def printableBoardPositions: List[String] = boardPositions.map((_ + 1)).map(_.toString)
-
-  def boardPositions: List[Int] = List.range(0, boardSize)
+  def boardPositions: List[Int] = squares.indices.toList
 
   private def findForwardsDiagonal: List[Int] = {
     var diagonals = new ListBuffer[Int]()

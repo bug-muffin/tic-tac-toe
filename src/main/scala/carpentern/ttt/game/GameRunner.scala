@@ -4,10 +4,7 @@ import carpentern.ttt.boards.Board
 import carpentern.ttt.players.Player
 
 class GameRunner(rules: GameRules) {
-  private var boardPositions: List[String] = _
-
   def playGame(board: Board, players: List[Player], view: View) = {
-    boardPositions = board.printableBoardPositions
     var currentBoard = board
     while (!rules.isGameOver(currentBoard)) {
       currentBoard = alternatePlayerTurns(currentBoard, players, view)
@@ -36,8 +33,8 @@ class GameRunner(rules: GameRules) {
 
   private def displayCurrentBoard(board: Board, view: View) {
     view.clearScreen
-    view.printBoard(board, board.printableBoardPositions)
-    view.printBoard(board, board.squares)
+    view.printBoardPositions(board)
+    view.printBoardValues(board)
   }
 
   private def displayResults(board: Board, players: List[Player], view: View) = {

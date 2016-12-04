@@ -10,6 +10,7 @@ trait View {
   def getPlayerMove(board: Board): String
   def displayWinningMessage(winner: String)
   def displayTieMessage
-  def printBoard(board: Board, gameBoard: List[String])
+  def printBoardPositions(board: Board)
+  def printBoardValues(board: Board)
   def clearScreen
 }

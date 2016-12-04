@@ -21,8 +21,12 @@ class Setup(playerBuilder: PlayerBuilder, view: View) {
     createPlayers(playMode, markers)
   }
 
-  private def createBoard(selection: String): Board =
-    if (selection == "1") Board(9) else Board(16)
+  private def createBoard(selection: String): Board = {
+    if (selection == "1")
+      Board(9)
+    else
+      Board(16)
+  }
 
   private def selectPlayMode: String = {
     val prompt: String = "\nPlease select your mode of play:\n"
@@ -46,7 +50,10 @@ class Setup(playerBuilder: PlayerBuilder, view: View) {
   private def assignPlayerNames(playMode: String): List[String] = {
     val playerNames = new ListBuffer[String]()
     playerNames += view.getPlayerName("First")
-    if (playMode == "1") playerNames += view.getPlayerName("Second") else playerNames += "Computer"
+    if (playMode == "1")
+      playerNames += view.getPlayerName("Second")
+    else
+      playerNames += "Computer"
     playerNames.toList
   }
 
@@ -62,8 +69,12 @@ class Setup(playerBuilder: PlayerBuilder, view: View) {
     view.getOrderedOptionsSelection(options)
   }
 
-  private def assignPlayerMarkersBySelection(selection: String, markers: List[String]): List[String] =
-    if (selection == "1") markers else reverse(markers)
+  private def assignPlayerMarkersBySelection(selection: String, markers: List[String]): List[String] = {
+    if (selection == "1")
+      markers
+    else
+      reverse(markers)
+  }
 
   private def pairNamesAndMarkers(playerNames: List[String], playerMarkers: List[String]): List[(String,String)] =
     playerNames.zip(playerMarkers)

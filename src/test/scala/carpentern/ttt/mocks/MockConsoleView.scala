@@ -12,8 +12,8 @@ class MockConsoleView extends View {
   var displayWinningMessageCalled: Boolean = false
   var displayWinningMessageCalledWith: String = _
   var displayTieMessageCalled: Boolean = false
-  var printBoardCalled: Boolean = false
-  var printBoardCalledWith: String = _
+  var printBoardPositionsCalled: Boolean = false
+  var printBoardValuesCalled: Boolean = false
   var clearScreenCalled: Boolean = false
   var stubbedSelection: String = _
   var stubbedPlayerName: String = _
@@ -53,9 +53,12 @@ class MockConsoleView extends View {
     displayTieMessageCalled = true
   }
 
-  def printBoard(board:Board, currentBoard: List[String]) = {
-    printBoardCalledWith = currentBoard.toString
-    printBoardCalled = true
+  def printBoardPositions(board:Board) = {
+    printBoardPositionsCalled = true
+  }
+
+  def printBoardValues(board:Board) = {
+    printBoardValuesCalled = true
   }
 
   def clearScreen() = {

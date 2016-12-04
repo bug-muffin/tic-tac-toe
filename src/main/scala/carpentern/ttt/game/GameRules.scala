@@ -12,7 +12,7 @@ class GameRules {
         return true
       }
     }
-    return false
+    false
   }
 
   def findWinningMarker(board: Board): String = {
@@ -22,7 +22,7 @@ class GameRules {
         return identifyWinner(board, winningCombo)
       }
     }
-    return ""
+    ""
   }
 
   def isGameOver(board: Board): Boolean =

@@ -4,8 +4,8 @@ import carpentern.ttt.game.MoveGenerator
 import carpentern.ttt.game.PlayerBuilder
 
 class TTTPlayerBuilder(
-    humanMoveGenerator: MoveGenerator, 
-    computerMoveGenerator: MoveGenerator) 
+    humanMoveGenerator: MoveGenerator,
+    computerMoveGenerator: MoveGenerator)
   extends PlayerBuilder {
 
   def buildPlayer(name: String, marker: String): Player = {

@@ -18,7 +18,7 @@ class HumanMoveGeneratorSpec extends FunSpec with BeforeAndAfter {
         mockView.stubPlayerMove("1")
 
         assert(moveGenerator.selectSpace(board) == "1")
-        assert(mockView.getPlayerMoveCalled == true)
+        assert(mockView.getPlayerMoveCalled)
       }
     }
   }

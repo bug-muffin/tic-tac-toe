@@ -48,8 +48,10 @@ class ConsoleView(io: IO, moveValidator: MoveValidator, presenter: BoardPresente
   def displayTieMessage =
     io.display("Game over. It's a tie.\n")
 
-  def printBoard(board: Board, currentBoard: List[String]) =
-    io.display(presenter.formatBoardToString(board, currentBoard) + "\n")
+  def printBoardPositions(board: Board) = io.display(presenter.formatBoardPositionsToString(board) + "\n")
+
+  def printBoardValues(board: Board) = io.display(presenter.formatBoardValuesToString(board) + "\n")
+
 
   def clearScreen = io.clear
 }

@@ -18,11 +18,11 @@ class ComputerMoveGenerator(markers: List[String], rules: GameRules) extends Mov
     (bestMove + 1).toString
   }
 
-  private def negamax(board: Board, 
-                      currentMarker: String, 
-                      opponentMarker: String, 
+  private def negamax(board: Board,
+                      currentMarker: String,
+                      opponentMarker: String,
                       depth: Int,
-                      alpha: Double = Double.NegativeInfinity, 
+                      alpha: Double = Double.NegativeInfinity,
                       beta: Double = Double.PositiveInfinity): Double = {
     if (isTerminalNode(board, depth))
       analyzeScore(board, currentMarker, opponentMarker, depth)
@@ -30,11 +30,11 @@ class ComputerMoveGenerator(markers: List[String], rules: GameRules) extends Mov
       evaluateBoard(board, currentMarker, opponentMarker, depth, alpha, beta)
   }
 
-  private def evaluateBoard(board: Board, 
-                            currentMarker: String, 
-                            opponentMarker: String, 
-                            depth: Int, 
-                            alpha: Double, 
+  private def evaluateBoard(board: Board,
+                            currentMarker: String,
+                            opponentMarker: String,
+                            depth: Int,
+                            alpha: Double,
                             beta: Double) = {
     var maxScore: Double = Double.NegativeInfinity
     var newAlpha: Double = alpha
@@ -56,7 +56,7 @@ class ComputerMoveGenerator(markers: List[String], rules: GameRules) extends Mov
 
         if (newAlpha >= beta) {
           break
-        }        
+        }
       }
     }
     newAlpha
@@ -68,9 +68,9 @@ class ComputerMoveGenerator(markers: List[String], rules: GameRules) extends Mov
   private def analyzeScore(board: Board, currentMarker: String, opponentMarker: String, depth: Int): Int = {
     if (rules.isWinningConditionMet(board)) {
       val winner: String = rules.findWinningMarker(board)
-      if (winner == currentMarker) 
-        baseDepth - depth 
-      else 
+      if (winner == currentMarker)
+        baseDepth - depth
+      else
         depth - baseDepth
     } else {
       return 0
