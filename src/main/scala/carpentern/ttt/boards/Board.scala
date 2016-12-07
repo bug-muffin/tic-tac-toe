@@ -1,14 +1,15 @@
 package carpentern.ttt.boards
 
 import scala.collection.mutable.ListBuffer
+import carpentern.ttt.config.{Marker,EMPTY}
 
 object Board {
-  def apply(boardSize: Int): Board = new Board(boardSize, List.fill(boardSize)(""))
+  def apply(boardSize: Int): Board = new Board(boardSize, List.fill(boardSize)(EMPTY))
 }
 
-case class Board(boardSize: Int, squares: List[String]) {
+case class Board(boardSize: Int, squares: List[Marker]) {
 
-  def placePiece(space: Int, marker: String): Board =
+  def placePiece(space: Int, marker: Marker): Board =
     new Board(boardSize, squares.updated(space - 1, marker))
 
   def countRows: Int = math.sqrt(boardSize).toInt
@@ -19,7 +20,7 @@ case class Board(boardSize: Int, squares: List[String]) {
 
   def findDiagonals: List[List[Int]] = List(findForwardsDiagonal, findBackwardsDiagonal)
 
-  def findOpenSpaces: List[Int] = squares.zipWithIndex.collect{ case(x, i) if x == "" => i }
+  def findOpenSpaces: List[Int] = squares.zipWithIndex.collect{ case(x, i) if x == EMPTY => i }
 
   def boardPositions: List[Int] = squares.indices.toList
 

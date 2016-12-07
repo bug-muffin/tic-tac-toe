@@ -4,8 +4,9 @@ import scala.util.control.Breaks.{break, breakable}
 import carpentern.ttt.boards.Board
 import carpentern.ttt.game.GameRules
 import carpentern.ttt.game.MoveGenerator
+import carpentern.ttt.config.Marker
 
-class ComputerMoveGenerator(markers: List[String], rules: GameRules) extends MoveGenerator {
+class ComputerMoveGenerator(markers: List[Marker], rules: GameRules) extends MoveGenerator {
   private val currentMarker = markers(0)
   private val opponentMarker = markers(1)
   private val depth = 0
@@ -19,8 +20,8 @@ class ComputerMoveGenerator(markers: List[String], rules: GameRules) extends Mov
   }
 
   private def negamax(board: Board,
-                      currentMarker: String,
-                      opponentMarker: String,
+                      currentMarker: Marker,
+                      opponentMarker: Marker,
                       depth: Int,
                       alpha: Double = Double.NegativeInfinity,
                       beta: Double = Double.PositiveInfinity): Double = {
@@ -31,8 +32,8 @@ class ComputerMoveGenerator(markers: List[String], rules: GameRules) extends Mov
   }
 
   private def evaluateBoard(board: Board,
-                            currentMarker: String,
-                            opponentMarker: String,
+                            currentMarker: Marker,
+                            opponentMarker: Marker,
                             depth: Int,
                             alpha: Double,
                             beta: Double) = {
@@ -65,9 +66,9 @@ class ComputerMoveGenerator(markers: List[String], rules: GameRules) extends Mov
   private def isTerminalNode(board: Board, depth: Int) =
     rules.isGameOver(board) || depth >= maxDepth
 
-  private def analyzeScore(board: Board, currentMarker: String, opponentMarker: String, depth: Int): Int = {
+  private def analyzeScore(board: Board, currentMarker: Marker, opponentMarker: Marker, depth: Int): Int = {
     if (rules.isWinningConditionMet(board)) {
-      val winner: String = rules.findWinningMarker(board)
+      val winner: Marker = rules.findWinningMarker(board)
       if (winner == currentMarker)
         baseDepth - depth
       else

@@ -1,6 +1,8 @@
 import org.scalatest.FunSpec
 import org.scalatest.BeforeAndAfter
 import carpentern.ttt.boards.Board
+import carpentern.ttt.config.{X,O,EMPTY}
+import carpentern.ttt.config.Marker
 import carpentern.ttt.players.ComputerMoveGenerator
 import carpentern.ttt.players.HumanMoveGenerator
 import carpentern.ttt.players.Player
@@ -9,7 +11,7 @@ import carpentern.ttt.game.GameRunner
 
 class GameRunnerSpec extends FunSpec with BeforeAndAfter {
   val boardSize: Int = 9
-  val markers: List[String] = List("X", "O")
+  val markers: List[Marker] = List(X, O)
   var gameRules: GameRules = _
   var game: GameRunner = _
   var board: Board = _
@@ -27,16 +29,16 @@ class GameRunnerSpec extends FunSpec with BeforeAndAfter {
   }
 
   private def mockVComputer() = {
-    List(new Player("p1", "X", mockGenerator),
-         new Player("p2", "O", computerGenerator))
+    List(new Player("p1", X, mockGenerator),
+         new Player("p2", O, computerGenerator))
   }
 
   private def mockVMock() = {
-    List(new Player("p1", "X", mockGenerator),
-         new Player("p2", "O", computerGenerator))
+    List(new Player("p1", X, mockGenerator),
+         new Player("p2", O, computerGenerator))
   }
 
-  private def lastMoveBoard = List("", "X", "X", "O", "O", "X", "O", "X", "O")
+  private def lastMoveBoard = List(EMPTY, X, X, O, O, X, O, X, O)
 
   describe("Game") {
     describe("#playGame") {
@@ -78,7 +80,7 @@ class GameRunnerSpec extends FunSpec with BeforeAndAfter {
       }
 
       it("should return a tie message if there is a tie") {
-        val tempBoard = List("X", "X", "O", "O", "O", "X", "X", "", "")
+        val tempBoard = List(X, X, O, O, O, X, X, EMPTY, EMPTY)
         val newBoard = board.copy(squares = tempBoard)
         mockGenerator.stubSelectSpace("8")
 
@@ -88,7 +90,7 @@ class GameRunnerSpec extends FunSpec with BeforeAndAfter {
       }
 
       it("should display a winning message with the player's name when the player wins") {
-        val tempBoard = List("", "X", "X", "O", "O", "X", "O", "X", "O")
+        val tempBoard = List(EMPTY, X, X, O, O, X, O, X, O)
         val newBoard = board.copy(squares = tempBoard)
         mockGenerator.stubSelectSpace("1")
 

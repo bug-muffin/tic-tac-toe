@@ -16,7 +16,7 @@ class Setup(playerBuilder: PlayerBuilder, view: View) {
     createBoard(view.getOrderedOptionsSelection(options))
   }
 
-  def setupPlayers(markers: List[String]): List[Player] = {
+  def setupPlayers(markers: List[Marker]): List[Player] = {
     val playMode: String = selectPlayMode
     createPlayers(playMode, markers)
   }
@@ -35,11 +35,11 @@ class Setup(playerBuilder: PlayerBuilder, view: View) {
     view.getOrderedOptionsSelection(options)
   }
 
-  private def createPlayers(playMode: String, markers: List[String]): List[Player] = {
+  private def createPlayers(playMode: String, markers: List[Marker]): List[Player] = {
     val players = new ListBuffer[Player]()
     val playerNames: List[String] = assignPlayerNames(playMode)
-    val playerMarkers: List[String] = assignPlayerMarkers(playerNames, markers)
-    val playAttributeSets: List[(String,String)] = pairNamesAndMarkers(playerNames, playerMarkers)
+    val playerMarkers: List[Marker] = assignPlayerMarkers(playerNames, markers)
+    val playAttributeSets: List[(String,Marker)] = pairNamesAndMarkers(playerNames, playerMarkers)
     for (attributeSet <- playAttributeSets) {
       val player = playerBuilder.buildPlayer(attributeSet._1, attributeSet._2)
       players += player
@@ -57,26 +57,26 @@ class Setup(playerBuilder: PlayerBuilder, view: View) {
     playerNames.toList
   }
 
-  private def assignPlayerMarkers(players: List[String], markers: List[String]): List[String] = {
+  private def assignPlayerMarkers(players: List[String], markers: List[Marker]): List[Marker] = {
     val selection: String = getPlayerMarkerSelection(players, markers)
     assignPlayerMarkersBySelection(selection, markers)
   }
 
-  private def getPlayerMarkerSelection(players:List[String], markers: List[String]): String = {
+  private def getPlayerMarkerSelection(players:List[String], markers: List[Marker]): String = {
     val prompt: String = s"\n${players(0)}, do you want to play with ${markers(0)} or ${markers(1)}?\n"
-    val options: List[String] = List(s"1 - ${markers(0)}\n", s"2 - ${markers(1)}\n")
+    val options: List[String] = List(s"1 - ${markers(0).toString}\n", s"2 - ${markers(1).toString}\n")
     view.promptOrderedOptions(prompt, options)
     view.getOrderedOptionsSelection(options)
   }
 
-  private def assignPlayerMarkersBySelection(selection: String, markers: List[String]): List[String] = {
+  private def assignPlayerMarkersBySelection(selection: String, markers: List[Marker]): List[Marker] = {
     if (selection == "1")
       markers
     else
       reverse(markers)
   }
 
-  private def pairNamesAndMarkers(playerNames: List[String], playerMarkers: List[String]): List[(String,String)] =
+  private def pairNamesAndMarkers(playerNames: List[String], playerMarkers: List[Marker]): List[(String,Marker)] =
     playerNames.zip(playerMarkers)
 
   private def reverse[A](ls: List[A]) = ls.reverse

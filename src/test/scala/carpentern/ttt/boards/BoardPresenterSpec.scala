@@ -2,6 +2,7 @@ import org.scalatest.FunSpec
 import org.scalatest.BeforeAndAfter
 import carpentern.ttt.boards.Board
 import carpentern.ttt.boards.BoardPresenter
+import carpentern.ttt.config.X
 
 class BoardPresenterSpec extends FunSpec with BeforeAndAfter {
   var board_3x3: Board = _
@@ -17,7 +18,7 @@ class BoardPresenterSpec extends FunSpec with BeforeAndAfter {
   describe("BoardPresenter") {
     describe("#formatBoardValuesToString") {
       it("should correctly format a 3 x 3 board with markers") {
-        val tempBoard = List.fill(9)("X")
+        val tempBoard = List.fill(9)(X)
         val newBoard = board_3x3.copy(squares = tempBoard)
         val expectedResult = " X | X | X\n" +
                              "===+===+===\n" +
@@ -39,7 +40,7 @@ class BoardPresenterSpec extends FunSpec with BeforeAndAfter {
       }
 
       it("should correctly format a 4 x 4 board with markers") {
-        val tempBoard = List.fill(16)("X")
+        val tempBoard = List.fill(16)(X)
         val newBoard = board_4x4.copy(squares = tempBoard)
         val expectedResult = " X | X | X | X\n" +
                              "===+===+===+===\n" +

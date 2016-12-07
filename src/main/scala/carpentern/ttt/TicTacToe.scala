@@ -2,13 +2,14 @@ package carpentern.ttt
 
 import carpentern.ttt.boards.Board
 import carpentern.ttt.boards.BoardPresenter
+import carpentern.ttt.config.{Marker,X,O}
+import carpentern.ttt.config.Setup
 import carpentern.ttt.game.GameRules
 import carpentern.ttt.game.GameRunner
 import carpentern.ttt.players.HumanMoveGenerator
 import carpentern.ttt.players.ComputerMoveGenerator
 import carpentern.ttt.players.Player
 import carpentern.ttt.players.TTTPlayerBuilder
-import carpentern.ttt.config.Setup
 import carpentern.ttt.ui.ConsoleIO
 import carpentern.ttt.ui.ConsoleView
 import carpentern.ttt.validators.MoveValidator
@@ -24,7 +25,7 @@ object TicTacToe {
     val gameRules: GameRules = new GameRules()
     val game: GameRunner = new GameRunner(gameRules)
 
-    val markers: List[String] = List("X", "O")
+    val markers: List[Marker] = List(X, O)
     val humanMoveGenerator: HumanMoveGenerator = new HumanMoveGenerator(view)
     val computerMoveGenerator: ComputerMoveGenerator = new ComputerMoveGenerator(markers, gameRules)
     val playerBuilder: TTTPlayerBuilder = new TTTPlayerBuilder(humanMoveGenerator, computerMoveGenerator)

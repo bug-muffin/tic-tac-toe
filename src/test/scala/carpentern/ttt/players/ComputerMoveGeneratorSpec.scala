@@ -4,9 +4,10 @@ import org.scalatest.Matchers._
 import carpentern.ttt.boards.Board
 import carpentern.ttt.game.GameRules
 import carpentern.ttt.players.ComputerMoveGenerator
+import carpentern.ttt.config.{X,O,EMPTY}
 
 class ComputerMoveGeneratorSpec extends FunSpec with BeforeAndAfter {
-  val markers = List("X", "O")
+  val markers = List(X, O)
 
   val board = Board(9)
   val gameRules = new GameRules()
@@ -23,35 +24,35 @@ class ComputerMoveGeneratorSpec extends FunSpec with BeforeAndAfter {
       }
 
       it("should force a tie") {
-        val newSquares = List("X", "X", "O", "O", "O", "X", "X", "O", "")
+        val newSquares = List(X, X, O, O, O, X, X, O, EMPTY)
         val newBoard = board.copy(squares = newSquares)
 
         assert(moveGenerator.selectSpace(newBoard) == "9")
       }
 
       it("should block an opponent's win") {
-        val newSquares = List("", "", "", "", "O", "", "", "X", "X")
+        val newSquares = List(EMPTY, EMPTY, EMPTY, EMPTY, O, EMPTY, EMPTY, X, X)
         val newBoard = board.copy(squares = newSquares)
 
         assert(moveGenerator.selectSpace(newBoard) == "7")
       }
 
       it("should win if possible") {
-        val newSquares = List("X", "X", "", "", "", "", "", "O", "O")
+        val newSquares = List(X, X, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, O, O)
         val newBoard = board.copy(squares = newSquares)
 
         assert(moveGenerator.selectSpace(newBoard) == "3")
       }
 
       it("should win late in the game") {
-        val newSquares = List("X", "O", "X", "O", "O", "X", "", "X", "")
+        val newSquares = List(X, O, X, O, O, X, EMPTY, X, EMPTY)
         val newBoard = board.copy(squares = newSquares)
 
         assert(moveGenerator.selectSpace(newBoard) == "9")
       }
 
       it("should block on a second move") {
-        val newSquares = List("X", "", "", "", "O", "", "", "", "X")
+        val newSquares = List(X, EMPTY, EMPTY, EMPTY, O, EMPTY, EMPTY, EMPTY, X)
         val newBoard = board.copy(squares = newSquares)
 
         assert(moveGenerator.selectSpace(newBoard) != "2")
@@ -61,14 +62,14 @@ class ComputerMoveGeneratorSpec extends FunSpec with BeforeAndAfter {
       }
 
       it("should set up double win scenario if available") {
-        val newSquares = List("O", "O", "X", "X", "", "", "", "", "")
+        val newSquares = List(O, O, X, X, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY)
         val newBoard = board.copy(squares = newSquares)
 
         assert(moveGenerator.selectSpace(newBoard) == "5")
       }
 
       it("should set up center fork") {
-        val newSquares = List("X", "X", "O", "", "", "", "", "", "")
+        val newSquares = List(X, X, O, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY)
         val newBoard = board.copy(squares = newSquares)
 
         assert(moveGenerator.selectSpace(newBoard) != "4")

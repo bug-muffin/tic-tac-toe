@@ -1,8 +1,10 @@
 package carpentern.ttt.boards
+
 import scala.collection.mutable.ListBuffer
 
 class BoardPresenter {
-  def formatBoardValuesToString(board: Board): String = formatToString(board, board.squares)
+  def formatBoardValuesToString(board: Board): String = 
+    formatToString(board, board.squares.map(_.toString))
 
   def formatBoardPositionsToString(board: Board): String = {
     val boardPositions = board.boardPositions.map((_ + 1)).map(_.toString)
@@ -22,7 +24,7 @@ class BoardPresenter {
   }
 
   private def addLeadingSpaces(squares: List[String]): List[String] =
-    squares.map( x => addSpace(x, squares))
+    squares.map(x => addSpace(x, squares))
 
   private def addSpace(placeholder: String, squares: List[String]): String =
     if (placeholder == "" || hasSomeTwoDigitSpaces(placeholder, squares))

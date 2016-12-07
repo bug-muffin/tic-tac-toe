@@ -2,6 +2,7 @@ import org.scalatest.FunSpec
 import org.scalatest.BeforeAndAfter
 import carpentern.ttt.boards.Board
 import carpentern.ttt.boards.BoardPresenter
+import carpentern.ttt.config.{X,O}
 import carpentern.ttt.validators.MoveValidator
 import carpentern.ttt.validators.NumberValidator
 import carpentern.ttt.ui.ConsoleView
@@ -128,7 +129,7 @@ class ConsoleViewSpec extends FunSpec with BeforeAndAfter {
     describe("#printBoardValues") {
       it("should print the board as a string") {
         val board = Board(9)
-        val newSquares = List("X", "O", "O", "O", "X", "X", "X", "O", "X")
+        val newSquares = List(X, O, O, O, X, X, X, O, X)
         val newBoard = board.copy(squares = newSquares)
 
         view.printBoardValues(newBoard)

@@ -3,6 +3,7 @@ import org.scalatest.BeforeAndAfter
 import org.scalatest.Matchers._
 
 import carpentern.ttt.boards.Board
+import carpentern.ttt.config.{Marker,X,O,EMPTY}
 
 class BoardSpec extends FunSpec with BeforeAndAfter {
   var board_3x3: Board = _
@@ -21,7 +22,7 @@ class BoardSpec extends FunSpec with BeforeAndAfter {
 
       it("should only contain blanks") {
         assert(board_3x3.squares.distinct.length == 1)
-        assert(board_3x3.squares(0) == "")
+        assert(board_3x3.squares(0) == EMPTY)
       }
     }
 
@@ -77,14 +78,14 @@ class BoardSpec extends FunSpec with BeforeAndAfter {
       }
 
       it("should return no spaces if all are occupied") {
-        val newSquares = List("X", "O", "O", "O", "X", "X", "X", "O", "O")
+        val newSquares = List(X, O, O, O, X, X, X, O, O)
         val newBoard = board_3x3.copy(squares = newSquares)
 
         assert(newBoard.findOpenSpaces == List())
       }
 
       it("should return only spaces that are occupied") {
-        val newSquares = List("X", "O", "X", "", "", "", "", "", "")
+        val newSquares = List(X, O, X, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY)
         val newBoard = board_3x3.copy(squares = newSquares)
 
         assert(newBoard.findOpenSpaces == List(3, 4, 5, 6, 7, 8))
@@ -93,8 +94,8 @@ class BoardSpec extends FunSpec with BeforeAndAfter {
 
     describe("#placePiece") {
       it("should return a new board array with the piece in the selected place") {
-        val newBoard = board_3x3.placePiece(2, "X")
-        assert(newBoard.squares == List("", "X", "", "", "", "", "", "", ""))
+        val newBoard = board_3x3.placePiece(2, X)
+        assert(newBoard.squares == List(EMPTY, X, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY, EMPTY))
         newBoard shouldBe a [Board]
       }
     }

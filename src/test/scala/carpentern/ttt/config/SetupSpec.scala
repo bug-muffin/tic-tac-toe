@@ -6,9 +6,10 @@ import carpentern.ttt.game.PlayerBuilder
 import carpentern.ttt.players.HumanMoveGenerator
 import carpentern.ttt.players.Player
 import carpentern.ttt.config.Setup
+import carpentern.ttt.config.{X,O}
 
 class SetupSpec extends FunSpec with BeforeAndAfter {
-  val markers = List("X", "O")
+  val markers = List(X, O)
   val playerBuilder = new MockTTTPlayerBuilder()
   val view = new MockConsoleView()
   var setup: Setup = _

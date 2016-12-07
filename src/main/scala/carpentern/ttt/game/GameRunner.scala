@@ -1,6 +1,7 @@
 package carpentern.ttt.game
 
 import carpentern.ttt.boards.Board
+import carpentern.ttt.config.Marker
 import carpentern.ttt.players.Player
 
 class GameRunner(rules: GameRules) {
@@ -39,7 +40,7 @@ class GameRunner(rules: GameRules) {
 
   private def displayResults(board: Board, players: List[Player], view: View) = {
     if (rules.isWinningConditionMet(board)) {
-      val winningMarker: String = rules.findWinningMarker(board)
+      val winningMarker: Marker = rules.findWinningMarker(board)
       val winner: String = getWinningPlayer(players, winningMarker)
       displayCurrentBoard(board, view)
       view.displayWinningMessage(winner)
@@ -49,6 +50,6 @@ class GameRunner(rules: GameRules) {
     }
   }
 
-  private def getWinningPlayer(players: List[Player], winningMarker: String): String =
+  private def getWinningPlayer(players: List[Player], winningMarker: Marker): String =
     players.filter(x => x.marker == winningMarker)(0).name
 }
